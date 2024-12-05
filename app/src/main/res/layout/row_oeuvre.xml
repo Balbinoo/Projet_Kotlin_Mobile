@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="4dp">
+
+    <TextView
+        android:id="@+id/r_oeuvre_txv_id_exposition"
+        android:layout_width="186dp"
+        android:layout_height="46dp"
+        android:text="lupertz2022"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.048"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.023"
+        tools:text="lupertz2022" />
+
+    <TextView
+        android:id="@+id/r_oeuvre_txv_id_oeuvre"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="12dp"
+        android:text="lupertz2022-4"
+        app:layout_constraintBottom_toTopOf="@+id/r_oeuvre_txv_lat"
+        app:layout_constraintEnd_toStartOf="@+id/r_oeuvre_txv_matiere"
+        app:layout_constraintHorizontal_bias="0.995"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        tools:text="lupertz2022-4" />
+
+    <TextView
+        android:id="@+id/r_oeuvre_txv_titre"
+        android:layout_width="45dp"
+        android:layout_height="16dp"
+        android:layout_marginTop="44dp"
+        android:layout_marginEnd="20dp"
+        android:text="Achille"
+        app:layout_constraintBottom_toTopOf="@+id/r_oeuvre_txv_annee"
+        app:layout_constraintEnd_toStartOf="@+id/r_oeuvre_txv_emplacement"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.222"
+        tools:text="Achille" />
+
+    <TextView
+        android:id="@+id/r_oeuvre_txv_annee"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="96dp"
+        android:layout_marginBottom="16dp"
+        android:text="2014"
+        app:layout_constraintBottom_toTopOf="@+id/r_oeuvre_txv_collection"
+        app:layout_constraintEnd_toStartOf="@+id/r_oeuvre_txv_lon"
+        app:layout_constraintHorizontal_bias="0.881"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        tools:text="2014" />
+
+    <TextView
+        android:id="@+id/r_oeuvre_txv_dimension"
+        android:layout_width="118dp"
+        android:layout_height="19dp"
+        android:layout_marginStart="40dp"
+        android:text="333 x 75,5 x 138 cm"
+        app:layout_constraintBottom_toTopOf="@+id/r_oeuvre_txv_collection"
+        app:layout_constraintEnd_toStartOf="@+id/r_oeuvre_txv_annee"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/r_oeuvre_txv_id_exposition"
+        app:layout_constraintVertical_bias="0.304"
+        tools:text="333 x 75,5 x 138 cm" />
+
+    <TextView
+        android:id="@+id/r_oeuvre_txv_matiere"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="20dp"
+        android:text="Bronze peint"
+        app:layout_constraintBottom_toTopOf="@+id/r_oeuvre_txv_emplacement"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/r_oeuvre_txv_id_exposition"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        tools:text="Bronze peint" />
+
+    <TextView
+        android:id="@+id/r_oeuvre_txv_collection"
+        android:layout_width="391dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="104dp"
+        android:text="Galerie Michael Werner, Birkelsche Stiftung für Kunst und Kultur"
+        app:layout_constraintBottom_toTopOf="@+id/r_oeuvre_txv_texte_presentation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.55"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        tools:text="Galerie Michael Werner, Birkelsche Stiftung für Kunst und Kultur" />
+
+    <TextView
+        android:id="@+id/r_oeuvre_txv_texte_presentation"
+        android:layout_width="377dp"
+        android:layout_height="219dp"
+        android:text="La pose d’un homme qui marche, au talon relevé, peut évoquer la vulnérabilité de ce héros de la guerre de Troie décrit par Homère. Il s’agit surtout ici d’une recherche formelle et plastique ayant amené l’artiste à prolonger dans l'espace ses corps développés sur la toile. Les influences sont multiples, de Rodin à Giacometti. La monumentalité des œuvres de Lüpertz est caractéristique du rôle qu’il confère à l’art comme devant avoir une place importante dans la ville et être porté aux yeux de tous. L'emplacement de cette sculpture devant l'École d'art fait écho au rôle joué par Lüpertz comme directeur de l'Académie des Beaux-Arts de Düsseldorf de 1988 à 2009."
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.529"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="La pose d’un homme qui marche, au talon relevé, peut évoquer la vulnérabilité de ce héros de la guerre de Troie décrit par Homère. Il s’agit surtout ici d’une recherche formelle et plastique ayant amené l’artiste à prolonger dans l'espace ses corps développés sur la toile. Les influences sont multiples, de Rodin à Giacometti. La monumentalité des œuvres de Lüpertz est caractéristique du rôle qu’il confère à l’art comme devant avoir une place importante dans la ville et être porté aux yeux de tous. L'emplacement de cette sculpture devant l'École d'art fait écho au rôle joué par Lüpertz comme directeur de l'Académie des Beaux-Arts de Düsseldorf de 1988 à 2009." />
+
+    <TextView
+        android:id="@+id/r_oeuvre_txv_emplacement"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:text="Rue Fernand Rabier"
+        app:layout_constraintBottom_toTopOf="@+id/r_oeuvre_txv_lon"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.944"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="Rue Fernand Rabier" />
+
+    <TextView
+        android:id="@+id/r_oeuvre_txv_photo_auteur"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Luc Bertrand / ADAGP 2022"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/r_oeuvre_txv_photo_url2"
+        app:layout_constraintHorizontal_bias="0.17"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/r_oeuvre_txv_repere_maps"
+        app:layout_constraintVertical_bias="0.0"
+        tools:text="Luc Bertrand / ADAGP 2022" />
+
+    <TextView
+        android:id="@+id/r_oeuvre_txv_repere_maps"
+        android:layout_width="233dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="12dp"
+        android:text="École+Supérieure+d'Art+et+de+Design+d'Orléans"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.101"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/r_oeuvre_txv_texte_presentation"
+        app:layout_constraintVertical_bias="0.0"
+        tools:text="École+Supérieure+d'Art+et+de+Design+d'Orléans" />
+
+    <TextView
+        android:id="@+id/r_oeuvre_txv_lon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="1.910039"
+        app:layout_constraintBottom_toTopOf="@+id/r_oeuvre_txv_collection"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.891"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="1.910039" />
+
+    <TextView
+        android:id="@+id/r_oeuvre_txv_lat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="47.902606"
+        app:layout_constraintBottom_toTopOf="@+id/r_oeuvre_txv_collection"
+        app:layout_constraintEnd_toStartOf="@+id/r_oeuvre_txv_lon"
+        app:layout_constraintStart_toEndOf="@+id/r_oeuvre_txv_annee"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.811"
+        tools:text="47.902606" />
+
+    <ImageView
+        android:id="@+id/r_oeuvre_txv_photo_url2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.941"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/r_oeuvre_txv_texte_presentation"
+        app:layout_constraintVertical_bias="1.0"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/r_oeuvre_txv_photo_nomfichier"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="52dp"
+        android:text="Lupertz-Achille-LucBertrand.jpg"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/r_oeuvre_txv_photo_url2"
+        app:layout_constraintHorizontal_bias="0.833"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/r_oeuvre_txv_photo_auteur"
+        app:layout_constraintVertical_bias="0.0"
+        tools:text="Lupertz-Achille-LucBertrand.jpg" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
