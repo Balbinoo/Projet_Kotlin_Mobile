@@ -100,24 +100,24 @@
 
     <TextView
         android:id="@+id/r_oeuvre_txv_photo_auteur"
-        android:layout_width="175dp"
-        android:layout_height="34dp"
+        android:layout_width="205dp"
+        android:layout_height="37dp"
         android:layout_marginTop="12dp"
         android:text="Luc Bertrand / ADAGP 2022"
-        app:layout_constraintEnd_toStartOf="@+id/r_oeuvre_txv_repere_maps"
-        app:layout_constraintHorizontal_bias="0.387"
+        app:layout_constraintEnd_toStartOf="@+id/r_oeuvre_img_PhotoUrl2_photo_url2"
+        app:layout_constraintHorizontal_bias="0.428"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/r_oeuvre_txv_texte_presentation"
         tools:text="Luc Bertrand / ADAGP 2022" />
 
     <TextView
         android:id="@+id/r_oeuvre_txv_repere_maps"
-        android:layout_width="193dp"
-        android:layout_height="45dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="4dp"
+        android:layout_width="209dp"
+        android:layout_height="44dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="16dp"
         android:text="École+Supérieure+d'Art+et+de+Design+d'Orléans"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/r_oeuvre_img_PhotoUrl2_photo_url2"
         app:layout_constraintTop_toBottomOf="@+id/r_oeuvre_txv_texte_presentation"
         tools:text="École+Supérieure+d'Art+et+de+Design+d'Orléans" />
 
@@ -147,29 +147,16 @@
 
     <TextView
         android:id="@+id/r_oeuvre_txv_photo_nomfichier"
-        android:layout_width="193dp"
-        android:layout_height="21dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="96dp"
+        android:layout_width="202dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="116dp"
         android:text="Lupertz-Achille-LucBertrand.jpg"
-        app:layout_constraintEnd_toStartOf="@+id/r_oeuvre_txv_photo_url2"
-        app:layout_constraintHorizontal_bias="0.36"
+        app:layout_constraintEnd_toStartOf="@+id/r_oeuvre_img_PhotoUrl2_photo_url2"
+        app:layout_constraintHorizontal_bias="0.115"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/r_oeuvre_txv_texte_presentation"
         tools:text="Lupertz-Achille-LucBertrand.jpg" />
-
-    <EditText
-        android:id="@+id/r_oeuvre_txv_photo_url2"
-        android:layout_width="169dp"
-        android:layout_height="55dp"
-        android:layout_marginTop="76dp"
-        android:layout_marginEnd="12dp"
-        android:ems="10"
-        android:inputType="text"
-        android:text="r_oeuvre_txv_photo_url2"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/r_oeuvre_txv_texte_presentation" />
 
     <TextView
         android:id="@+id/r_oeuvre_txv_annee"
@@ -182,5 +169,15 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/r_oeuvre_txv_matiere" />
+
+    <ImageView
+        android:id="@+id/r_oeuvre_img_PhotoUrl2_photo_url2"
+        android:layout_width="159dp"
+        android:layout_height="179dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/r_oeuvre_txv_texte_presentation"
+        tools:srcCompat="@tools:sample/avatars" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

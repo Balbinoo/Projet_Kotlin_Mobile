@@ -4,6 +4,7 @@ import GeoPoint2D
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 
 class OeuvreAdapter(private var oeuvres: List<Oeuvre>) : RecyclerView.Adapter<OeuvreViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OeuvreViewHolder {
@@ -25,8 +26,12 @@ class OeuvreAdapter(private var oeuvres: List<Oeuvre>) : RecyclerView.Adapter<Oe
         holder.txvEmplacement.text = oeuvre.emplacement
         holder.txvPhotoAuteur.text = oeuvre.photo_auteur
         holder.txvOeuvreRepereMaps.text = oeuvre.oeuvre_repere_maps
-        holder.txvPhotoUrl2.text = oeuvre.photo_url2
         holder.txvPhotoNomfichier.text = oeuvre.photo_nomfichier
+
+        // Load image from URL using Glide
+        Glide.with(holder.imgPhotoUrl2.context)
+            .load(oeuvre.photo_url2) // URL of the image
+            .into(holder.imgPhotoUrl2)
     }
 
     override fun getItemCount(): Int {
