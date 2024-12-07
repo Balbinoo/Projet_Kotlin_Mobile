@@ -6,6 +6,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -29,10 +30,33 @@ class MainActivity : AppCompatActivity(), OeuvreCreator {
         findViewById(R.id.a_main_btn_create_oeuvre)
     }
 
+    private val txtWelcome: TextView by lazy {
+        findViewById(R.id.a_main_txt_welcome)
+    }
+
+    private val btnGetAll: Button by lazy {
+        findViewById(R.id.a_main_btn_getAll_oeuvre)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_oeuvre)
 
+        btnGetAll.setOnClickListener {
+            // Listen if button is pressed
+            displayAllData()
+        }
+
+        btnCreateOeuvre.setOnClickListener {
+            // Listen if button is pressed
+            displayCreateOeuvreFragment()
+        }
+    }
+
+    private fun displayAllData(){
+        btnGetAll.visibility = View.INVISIBLE
+        txtWelcome.visibility = View.INVISIBLE
+        // Listen if button is pressed
         oeuvreService.getAllOeuvres().enqueue(object : Callback<List<Oeuvre>> {
 
             override fun onResponse(call: Call<List<Oeuvre>>, response: Response<List<Oeuvre>>) {
@@ -59,11 +83,6 @@ class MainActivity : AppCompatActivity(), OeuvreCreator {
                 Log.e("MainActivity", "Error: ${t.message}")
             }
         })
-
-        btnCreateOeuvre.setOnClickListener {
-            // Listen if button is pressed
-            displayCreateOeuvreFragment()
-        }
     }
 
     private fun displayOeuvreListFragment() {
@@ -96,9 +115,22 @@ class MainActivity : AppCompatActivity(), OeuvreCreator {
                 displayOeuvreListFragment()
                 true
             }
+            R.id.action_info -> {
+                // Hide the data-related views and show the initial UI elements.
+                if (txtWelcome.visibility == View.INVISIBLE) {
+                    btnGetAll.visibility = View.VISIBLE
+                    txtWelcome.visibility = View.VISIBLE
+                    // If you want to clear the fragments or hide them:
+                    supportFragmentManager.beginTransaction().remove(supportFragmentManager.findFragmentById(R.id.a_main_lyt_container_oeuvre)!!).commit()
+                }
+                true // Ensure a Boolean value is returned
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }
+
+
+
 
     override fun onOeuvreCreated(oeuvre: Oeuvre) {
         // I don't know what it does write on top of
