@@ -1,5 +1,6 @@
 package com.ismin.android
 
+import GeoPoint2D
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -68,14 +69,28 @@ class CreateOeuvreFragment : Fragment() {
         val textePresentation = leTextePresentation.text.toString()
         val photo_nomfichier = "Lupertz-Achille-LucBertrand.jpg"
         val photo_auteur = "Luc Bertrand / ADAGP 2022"
-        val oeuvre_repere_maps = "null"
+        val oeuvre_repere_maps = "mock data"
         val geo_point_2d = GeoPoint2D(47.902, 1.904)
         val photo_url2 = "https://data.orleans-metropole.fr/assets/theme_image/Lupertz-Achille-LucBertrand.jpg"
         val dimension = "333 x 75,5 x 138 cm"
         val collection = "Collection?"
 
-        val oeuvre = Oeuvre(id_oeuvre, id_exposition, titre, annee, matiere, emplacement, textePresentation, photo_nomfichier, photo_auteur, oeuvre_repere_maps,
-            geo_point_2d.toString(), photo_url2, collection, dimension)
+        val oeuvre = Oeuvre(
+            id_exposition,
+            id_oeuvre,
+            titre,
+            annee,
+            dimension,
+            matiere,
+            collection,
+            textePresentation,
+            emplacement,
+            photo_nomfichier,
+            photo_auteur,
+            oeuvre_repere_maps,
+            geo_point_2d,
+            photo_url2)
+
         listener.onOeuvreCreated(oeuvre)
 
     }

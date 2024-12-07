@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -16,7 +17,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 const val SERVER_BASE_URL = "https://app-96fe8c94-9085-4eab-b051-80432bfa2281.cleverapps.io/"
 
-class MainActivity : AppCompatActivity(), OeuvreCreator{
+class MainActivity : AppCompatActivity(), OeuvreCreator {
 
     private val compositionOeuvres = CompositionOeuvres()
 
@@ -32,30 +33,41 @@ class MainActivity : AppCompatActivity(), OeuvreCreator{
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_oeuvre)
 
-        oeuvreService.getAllOeuvres().enqueue(object : Callback<List<Oeuvre>>{
-            override fun onResponse(call: Call<List<Oeuvre>>, response: Response<List<Oeuvre>>
-            ) {
+        oeuvreService.getAllOeuvres().enqueue(object : Callback<List<Oeuvre>> {
+
+            override fun onResponse(call: Call<List<Oeuvre>>, response: Response<List<Oeuvre>>) {
+                Log.d("inside the oncreatee", "Did it get in here????")
+                Log.d("MainActivity", "Response: ${response.body()}")
+
+                // Get the list of all oeuvres
                 val allOeuvres: List<Oeuvre>? = response.body()
-                allOeuvres?.forEach{ compositionOeuvres.addOeuvre(it) }
+
+                // Filter the list to remove invalid oeuvres
+                val validOeuvres = allOeuvres?.filter { isValidOeuvre(it) } ?: emptyList()
+
+                // Add valid oeuvres to CompositionOeuvres
+                validOeuvres.forEach { compositionOeuvres.addOeuvre(it) }
+
+                // Display the list of oeuvres
                 displayOeuvreListFragment()
             }
 
             override fun onFailure(call: Call<List<Oeuvre>>, t: Throwable) {
-//                Toast.makeText(baseContext, "Quelque chose a pete", Toast.LENGTH_SHORT).show()
+                Log.d("Error directly?", "Did it get in here????")
                 Toast.makeText(baseContext, "Error: ${t.message}", Toast.LENGTH_LONG).show()
                 Log.d("Retrofit", "Request URL: ${call.request().url()}")
-
-
-
+                Log.e("MainActivity", "Error: ${t.message}")
             }
         })
 
-        btnCreateOeuvre.setOnClickListener{
+        btnCreateOeuvre.setOnClickListener {
+            // Listen if button is pressed
             displayCreateOeuvreFragment()
         }
     }
 
-    private fun displayOeuvreListFragment(){
+    private fun displayOeuvreListFragment() {
+        // If it is fetched onCreate
         val fragmentTransaction = supportFragmentManager.beginTransaction()
         val oeuvreListFragment = OeuvreListFragment.newInstance(compositionOeuvres.getAllOeuvres())
         fragmentTransaction.replace(R.id.a_main_lyt_container_oeuvre, oeuvreListFragment)
@@ -63,7 +75,8 @@ class MainActivity : AppCompatActivity(), OeuvreCreator{
         btnCreateOeuvre.visibility = View.VISIBLE
     }
 
-    private fun displayCreateOeuvreFragment(){
+    private fun displayCreateOeuvreFragment() {
+        // If button is pressed
         val fragmentTransaction = supportFragmentManager.beginTransaction()
         val createOeuvreFragment = CreateOeuvreFragment()
         fragmentTransaction.replace(R.id.a_main_lyt_container_oeuvre, createOeuvreFragment)
@@ -76,19 +89,19 @@ class MainActivity : AppCompatActivity(), OeuvreCreator{
         return super.onCreateOptionsMenu(menu)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean{
-        return when (item.itemId){
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
             R.id.action_delete -> {
                 compositionOeuvres.clear()
                 displayOeuvreListFragment()
                 true
             }
-
             else -> super.onOptionsItemSelected(item)
         }
     }
 
-    override fun onOeuvreCreated(oeuvre:Oeuvre){
+    override fun onOeuvreCreated(oeuvre: Oeuvre) {
+        // I don't know what it does write on top of
         oeuvreService.createOeuvre(oeuvre)
             .enqueue {
                 onResponse = {
@@ -97,8 +110,27 @@ class MainActivity : AppCompatActivity(), OeuvreCreator{
                     displayOeuvreListFragment()
                 }
                 onFailure = {
-                    Toast.makeText(this@MainActivity,it?.message, Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@MainActivity, it?.message, Toast.LENGTH_SHORT).show()
                 }
             }
+    }
+
+    // Validation function to check if the Oeuvre is valid
+    private fun isValidOeuvre(oeuvre: Oeuvre): Boolean {
+        // Ensure geo_point_2d is an object (not a malformed string) and other necessary fields
+        val isGeoPointValid = oeuvre.geo_point_2d != null
+                && oeuvre.geo_point_2d.lon != 0.0
+                && oeuvre.geo_point_2d.lat != 0.0
+
+        // Ensure required fields are not empty or malformed
+        val isTitleValid = !oeuvre.titre.isNullOrEmpty()
+        val isIdValid = !oeuvre.id_oeuvre.isNullOrEmpty()
+
+        // Log invalid oeuvres
+        if (!isGeoPointValid || !isTitleValid || !isIdValid) {
+            Log.e("MainActivity", "Invalid Oeuvre: $oeuvre")
+        }
+
+        return isGeoPointValid && isTitleValid && isIdValid
     }
 }

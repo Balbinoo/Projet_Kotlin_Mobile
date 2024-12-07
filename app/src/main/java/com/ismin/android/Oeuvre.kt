@@ -1,5 +1,6 @@
 package com.ismin.android
 
+import GeoPoint2D
 import java.io.Serializable
 
 data class Oeuvre(
@@ -15,11 +16,8 @@ data class Oeuvre(
     val photo_nomfichier: String,
     val photo_auteur: String,
     val oeuvre_repere_maps: String,
-    val geo_point_2d: String,
+    val geo_point_2d: GeoPoint2D,
     val photo_url2: String
 ) : Serializable
 
-data class GeoPoint2D(
-    val lon: Double,
-    val lat: Double
-) : Serializable
+

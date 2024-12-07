@@ -42,12 +42,10 @@
         android:layout_marginTop="44dp"
         android:layout_marginEnd="20dp"
         android:text="Achille"
-        app:layout_constraintBottom_toTopOf="@+id/r_oeuvre_txv_annee"
         app:layout_constraintEnd_toStartOf="@+id/r_oeuvre_txv_emplacement"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.222"
         tools:text="Achille" />
 
     <TextView
@@ -59,7 +57,7 @@
         android:text="2014"
         app:layout_constraintBottom_toTopOf="@+id/r_oeuvre_txv_collection"
         app:layout_constraintEnd_toStartOf="@+id/r_oeuvre_txv_lon"
-        app:layout_constraintHorizontal_bias="0.881"
+        app:layout_constraintHorizontal_bias="0.943"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0"
@@ -76,7 +74,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/r_oeuvre_txv_id_exposition"
-        app:layout_constraintVertical_bias="0.304"
+        app:layout_constraintVertical_bias="0.448"
         tools:text="333 x 75,5 x 138 cm" />
 
     <TextView
@@ -102,7 +100,6 @@
         android:text="Galerie Michael Werner, Birkelsche Stiftung für Kunst und Kultur"
         app:layout_constraintBottom_toTopOf="@+id/r_oeuvre_txv_texte_presentation"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.55"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
@@ -115,20 +112,21 @@
         android:text="La pose d’un homme qui marche, au talon relevé, peut évoquer la vulnérabilité de ce héros de la guerre de Troie décrit par Homère. Il s’agit surtout ici d’une recherche formelle et plastique ayant amené l’artiste à prolonger dans l'espace ses corps développés sur la toile. Les influences sont multiples, de Rodin à Giacometti. La monumentalité des œuvres de Lüpertz est caractéristique du rôle qu’il confère à l’art comme devant avoir une place importante dans la ville et être porté aux yeux de tous. L'emplacement de cette sculpture devant l'École d'art fait écho au rôle joué par Lüpertz comme directeur de l'Académie des Beaux-Arts de Düsseldorf de 1988 à 2009."
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.529"
+        app:layout_constraintHorizontal_bias="0.346"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.537"
         tools:text="La pose d’un homme qui marche, au talon relevé, peut évoquer la vulnérabilité de ce héros de la guerre de Troie décrit par Homère. Il s’agit surtout ici d’une recherche formelle et plastique ayant amené l’artiste à prolonger dans l'espace ses corps développés sur la toile. Les influences sont multiples, de Rodin à Giacometti. La monumentalité des œuvres de Lüpertz est caractéristique du rôle qu’il confère à l’art comme devant avoir une place importante dans la ville et être porté aux yeux de tous. L'emplacement de cette sculpture devant l'École d'art fait écho au rôle joué par Lüpertz comme directeur de l'Académie des Beaux-Arts de Düsseldorf de 1988 à 2009." />
 
     <TextView
         android:id="@+id/r_oeuvre_txv_emplacement"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="4dp"
+        android:layout_marginBottom="8dp"
         android:text="Rue Fernand Rabier"
         app:layout_constraintBottom_toTopOf="@+id/r_oeuvre_txv_lon"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.944"
+        app:layout_constraintHorizontal_bias="0.957"
         app:layout_constraintStart_toStartOf="parent"
         tools:text="Rue Fernand Rabier" />
 
@@ -140,10 +138,10 @@
         android:text="Luc Bertrand / ADAGP 2022"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/r_oeuvre_txv_photo_url2"
-        app:layout_constraintHorizontal_bias="0.17"
+        app:layout_constraintHorizontal_bias="0.055"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/r_oeuvre_txv_repere_maps"
-        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintVertical_bias="0.131"
         tools:text="Luc Bertrand / ADAGP 2022" />
 
     <TextView
@@ -154,7 +152,7 @@
         android:text="École+Supérieure+d'Art+et+de+Design+d'Orléans"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.101"
+        app:layout_constraintHorizontal_bias="0.594"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/r_oeuvre_txv_texte_presentation"
         app:layout_constraintVertical_bias="0.0"
@@ -184,31 +182,34 @@
         app:layout_constraintVertical_bias="0.811"
         tools:text="47.902606" />
 
-    <ImageView
-        android:id="@+id/r_oeuvre_txv_photo_url2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.941"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/r_oeuvre_txv_texte_presentation"
-        app:layout_constraintVertical_bias="1.0"
-        tools:srcCompat="@tools:sample/avatars" />
-
     <TextView
         android:id="@+id/r_oeuvre_txv_photo_nomfichier"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="52dp"
         android:text="Lupertz-Achille-LucBertrand.jpg"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/r_oeuvre_txv_photo_url2"
-        app:layout_constraintHorizontal_bias="0.833"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.014"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/r_oeuvre_txv_photo_auteur"
         app:layout_constraintVertical_bias="0.0"
         tools:text="Lupertz-Achille-LucBertrand.jpg" />
+
+    <EditText
+        android:id="@+id/r_oeuvre_txv_photo_url2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:ems="10"
+        android:inputType="text"
+        android:text="r_oeuvre_txv_photo_url2"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.949"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/r_oeuvre_txv_texte_presentation"
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

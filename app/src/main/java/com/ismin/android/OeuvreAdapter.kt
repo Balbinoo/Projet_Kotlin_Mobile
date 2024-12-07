@@ -1,5 +1,6 @@
 package com.ismin.android
 
+import GeoPoint2D
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -17,16 +18,15 @@ class OeuvreAdapter(private var oeuvres: List<Oeuvre>) : RecyclerView.Adapter<Oe
         holder.txvIdExposition.text = oeuvre.id_exposition
         holder.txvTitre.text = oeuvre.titre
         holder.txvAnnee.text = oeuvre.annee
-        holder.txvCollection.text = oeuvre.collection
-        holder.txvAnnee.text = oeuvre.annee
-        holder.txvEmplacement.text = oeuvre.emplacement
-        holder.txvMatiere.text = oeuvre.matiere
         holder.txvDimension.text = oeuvre.dimension
-        holder.txvOeuvreRepereMaps.text = oeuvre.oeuvre_repere_maps
+        holder.txvMatiere.text = oeuvre.matiere
+        holder.txvCollection.text = oeuvre.collection
         holder.txvTextePresentation.text = oeuvre.texte_presentation
+        holder.txvEmplacement.text = oeuvre.emplacement
         holder.txvPhotoAuteur.text = oeuvre.photo_auteur
+        holder.txvOeuvreRepereMaps.text = oeuvre.oeuvre_repere_maps
+        holder.txvPhotoUrl2.text = oeuvre.photo_url2
         holder.txvPhotoNomfichier.text = oeuvre.photo_nomfichier
-        //holder.txvPhotoUrl2.text = oeuvre.photo_url2
     }
 
     override fun getItemCount(): Int {
