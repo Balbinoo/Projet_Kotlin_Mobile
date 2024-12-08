@@ -5,11 +5,22 @@
 
     <!-- Info Menu Item -->
     <item
+        android:id="@+id/action_Data"
+        android:title="Data"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/action_maps"
+        android:title="Maps"
+        app:showAsAction="always" />
+    <item
         android:id="@+id/action_info"
         android:title="INFO"
         app:showAsAction="always" />
 
     <!-- Delete Menu Item -->
+    <item
+        android:id="@+id/action_add"
+        android:title="Add" />
     <item
         android:id="@+id/action_delete"
         android:icon="@drawable/baseline_delete_24"

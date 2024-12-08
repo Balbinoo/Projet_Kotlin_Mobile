@@ -24,23 +24,15 @@ class MainActivity : AppCompatActivity(), OeuvreCreator {
     private val retrofit = Retrofit.Builder().addConverterFactory(GsonConverterFactory.create())
         .baseUrl(SERVER_BASE_URL).build()
     private val oeuvreService = retrofit.create(OeuvreService::class.java)
-    private val btnCreateOeuvre: FloatingActionButton by lazy { findViewById(R.id.a_main_btn_create_oeuvre) }
     private val txtWelcome: TextView by lazy { findViewById(R.id.a_main_txt_welcome) }
-    private val btnGetAll: Button by lazy { findViewById(R.id.a_main_btn_getAll_oeuvre) }
-    //private val btnDescription: Button by lazy { findViewById(R.id.r_oeuvre_btn_details) }
-
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_oeuvre)
-
-        btnGetAll.setOnClickListener { displayAllData() }
-        btnCreateOeuvre.setOnClickListener { displayCreateOeuvreFragment() }
     }
 
     private fun displayAllData(){
-        btnGetAll.visibility = View.INVISIBLE
         txtWelcome.visibility = View.INVISIBLE
 
         oeuvreService.getAllOeuvres().enqueue(object : Callback<List<Oeuvre>> {
@@ -81,7 +73,6 @@ class MainActivity : AppCompatActivity(), OeuvreCreator {
         //replaces the actual fragment with the one created
         fragmentTransaction.replace(R.id.a_main_lyt_container_oeuvre, oeuvreListFragmentLessDetail)
         fragmentTransaction.commit()
-        btnCreateOeuvre.visibility = View.VISIBLE
     }
 
     private fun displayCreateOeuvreFragment() {
@@ -90,7 +81,6 @@ class MainActivity : AppCompatActivity(), OeuvreCreator {
         val createOeuvreFragment = CreateOeuvreFragment()
         fragmentTransaction.replace(R.id.a_main_lyt_container_oeuvre, createOeuvreFragment)
         fragmentTransaction.commit()
-        btnCreateOeuvre.visibility = View.GONE
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -105,9 +95,16 @@ class MainActivity : AppCompatActivity(), OeuvreCreator {
                 displayOeuvreListFragment()
                 true
             }
+            R.id.action_add -> {
+                displayCreateOeuvreFragment()
+                true
+            }
+            R.id.action_Data -> {
+                displayAllData()
+                true
+            }
             R.id.action_info -> {
                 if (txtWelcome.visibility == View.INVISIBLE) {
-                    btnGetAll.visibility = View.VISIBLE
                     txtWelcome.visibility = View.VISIBLE
 
                     val fragment = supportFragmentManager.findFragmentById(R.id.a_main_lyt_container_oeuvre)
