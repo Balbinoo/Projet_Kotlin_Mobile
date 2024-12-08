@@ -64,7 +64,7 @@ class MainActivity : AppCompatActivity(), OeuvreCreator {
             }
 
             override fun onFailure(call: Call<List<Oeuvre>>, t: Throwable) {
-                Log.d("Error directly?", "Did it get in here????")
+                Log.d("Error directly?",  "Did it get in here????")
                 Toast.makeText(baseContext, "Error: ${t.message}", Toast.LENGTH_LONG).show()
                 Log.d("Retrofit", "Request URL: ${call.request().url()}")
                 Log.e("MainActivity", "Error: ${t.message}")

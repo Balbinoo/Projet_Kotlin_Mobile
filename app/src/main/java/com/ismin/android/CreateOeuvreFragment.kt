@@ -19,9 +19,7 @@ class CreateOeuvreFragment : Fragment() {
     private lateinit var leMatiere: EditText
     private lateinit var lEmplacement: EditText
     private lateinit var leTextePresentation: EditText
-
     private lateinit var saveBtn: Button
-
     private  lateinit var listener: OeuvreCreator
 
     override fun onCreateView(

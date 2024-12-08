@@ -70,13 +70,16 @@
         android:id="@+id/r_oeuvre_btn_details"
         android:layout_width="404dp"
         android:layout_height="166dp"
+        android:background="@android:color/transparent"
+        android:enabled="true"
         android:textColorLink="#00000000"
-        android:visibility="invisible"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="1.0"
+        tools:visibility="visible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
