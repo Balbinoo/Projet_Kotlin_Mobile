@@ -3,27 +3,169 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    tools:context=".MainActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/a_main_lyt_container_oeuvre"
-        android:layout_width="407dp"
-        android:layout_height="729dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@android:color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <!-- Title -->
         <TextView
-            android:id="@+id/a_main_txt_welcome"
-            android:layout_width="wrap_content"
+            android:id="@+id/r_main_Titre"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Welcome to my application"
-            android:textSize="24sp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="16dp"
+            android:text="Oeuvres - Exposition du Musée des Beaux Arts - Orléans Métropole"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:textColor="@android:color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.449" />
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Dataset Identifier -->
+        <TextView
+            android:id="@+id/info_identifiant"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="16dp"
+            android:text="Identifiant du jeu de données:"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/r_main_Titre" />
+
+        <TextView
+            android:id="@+id/info_ident_lien"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="om-culture-moba-exposition-oeuvre@orleansmetropole"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/info_identifiant" />
+
+        <!-- Source -->
+        <TextView
+            android:id="@+id/info_Source"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="Source: Portail Open Data Orléans Métropole"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/info_ident_lien" />
+
+        <!-- Description -->
+        <TextView
+            android:id="@+id/info_description"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginHorizontal="8dp"
+            android:text="The information provided is a detailed catalog of sculptures from exhibitions by two prominent contemporary artists, Markus Lüpertz and Johan Creten, displayed in Orléans, France. These works span a variety of themes, styles, and techniques, emphasizing mythological, historical, and symbolic narratives."
+            android:textSize="14sp"
+            android:textColor="@android:color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/info_Source" />
+
+        <!-- Presentation -->
+        <TextView
+            android:id="@+id/info_presentation2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:layout_marginHorizontal="8dp"
+            android:text="This collection showcases the intersection of classical inspiration and modern innovation, reflecting the artists' deep engagement with form, narrative, and material experimentation."
+            android:textSize="14sp"
+            android:textColor="@android:color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/info_description" />
+
+        <!-- Downloads -->
+        <TextView
+            android:id="@+id/info_telecharge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="Téléchargements: 7 407"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/info_presentation2" />
+
+        <!-- Theme -->
+        <TextView
+            android:id="@+id/info_theme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Thèmes: Culture, Patrimoine"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/info_telecharge" />
+
+        <!-- License -->
+        <TextView
+            android:id="@+id/info_licence"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="Licence: Licence Ouverte v2.0 (Etalab)"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/info_theme" />
+
+        <!-- Modification Date -->
+        <TextView
+            android:id="@+id/info_modifie"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="Modifié: 7 décembre 2024 23:00"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/info_licence" />
+
+        <!-- Producer -->
+        <TextView
+            android:id="@+id/info_producteur"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="Producteur: Musée des Beaux Arts - Orléans Métropole"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/info_modifie" />
+
+        <!-- Last Treatment -->
+        <TextView
+            android:id="@+id/info_dernier_traitement"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:layout_marginHorizontal="8dp"
+            android:text="Dernier traitement: 7 décembre 2024 23:00 (métadonnées) 7 décembre 2024 23:00 (données)"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/info_producteur" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

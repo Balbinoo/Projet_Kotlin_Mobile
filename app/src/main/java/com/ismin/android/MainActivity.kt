@@ -24,7 +24,32 @@ class MainActivity : AppCompatActivity(), OeuvreCreator {
     private val retrofit = Retrofit.Builder().addConverterFactory(GsonConverterFactory.create())
         .baseUrl(SERVER_BASE_URL).build()
     private val oeuvreService = retrofit.create(OeuvreService::class.java)
-    private val txtWelcome: TextView by lazy { findViewById(R.id.a_main_txt_welcome) }
+    //private val
+    //private val txtWelcome: TextView by lazy { findViewById(R.id.a_main_txt_welcome) }
+    private val titre: TextView by lazy { findViewById(R.id.r_main_Titre) }
+    private val identifiant: TextView by lazy { findViewById(R.id.info_identifiant) }
+    private val identLien: TextView by lazy { findViewById(R.id.info_ident_lien) }
+    private val sourc: TextView by lazy { findViewById(R.id.info_Source) }
+    private val theme: TextView by lazy { findViewById(R.id.info_theme) }
+    private val licenc: TextView by lazy { findViewById(R.id.info_licence) }
+    private val modif: TextView by lazy { findViewById(R.id.info_modifie) }
+    private val prod: TextView by lazy { findViewById(R.id.info_producteur) }
+    private val presen2: TextView by lazy { findViewById(R.id.info_presentation2) }
+    private val traitem: TextView by lazy { findViewById(R.id.info_dernier_traitement) }
+    private val descrip: TextView by lazy { findViewById(R.id.info_description) }
+    private val tele: TextView by lazy { findViewById(R.id.info_telecharge) }
+
+    private fun setVisibility(visibility: Int, vararg views: View) {
+        views.forEach { it.visibility = visibility }
+    }
+
+    private fun allInvisible() {
+        setVisibility(View.INVISIBLE, titre, identifiant, identLien, sourc, theme, licenc, modif, prod, presen2, traitem, descrip, tele)
+    }
+
+    private fun allVisible() {
+        setVisibility(View.VISIBLE, titre, identifiant, identLien, sourc, theme, licenc, modif, prod, presen2, traitem, descrip, tele)
+    }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,7 +58,7 @@ class MainActivity : AppCompatActivity(), OeuvreCreator {
     }
 
     private fun displayAllData(){
-        txtWelcome.visibility = View.INVISIBLE
+        allInvisible()
 
         oeuvreService.getAllOeuvres().enqueue(object : Callback<List<Oeuvre>> {
 
@@ -83,6 +108,14 @@ class MainActivity : AppCompatActivity(), OeuvreCreator {
         fragmentTransaction.commit()
     }
 
+    private fun displayMapsFragment() {
+        // If button is pressed
+       // val fragmentTransaction = supportFragmentManager.beginTransaction()
+      //  val mapsFragment = MapsFragment()
+      //  fragmentTransaction.replace(R.id.a_main_lyt_container_oeuvre, mapsFragment)
+      //  fragmentTransaction.commit()
+    }
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_main, menu)
         return super.onCreateOptionsMenu(menu)
@@ -104,8 +137,8 @@ class MainActivity : AppCompatActivity(), OeuvreCreator {
                 true
             }
             R.id.action_info -> {
-                if (txtWelcome.visibility == View.INVISIBLE) {
-                    txtWelcome.visibility = View.VISIBLE
+                if (identifiant.visibility == View.INVISIBLE) {
+                    allVisible()
 
                     val fragment = supportFragmentManager.findFragmentById(R.id.a_main_lyt_container_oeuvre)
                     if (fragment != null) {
