@@ -110,10 +110,10 @@ class MainActivity : AppCompatActivity(), OeuvreCreator {
 
     private fun displayMapsFragment() {
         // If button is pressed
-       // val fragmentTransaction = supportFragmentManager.beginTransaction()
-      //  val mapsFragment = MapsFragment()
-      //  fragmentTransaction.replace(R.id.a_main_lyt_container_oeuvre, mapsFragment)
-      //  fragmentTransaction.commit()
+        val fragmentTransaction = supportFragmentManager.beginTransaction()
+        val mapsFragment = MapsFragment()
+        fragmentTransaction.replace(R.id.a_main_lyt_container_oeuvre, mapsFragment)
+        fragmentTransaction.commit()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -134,6 +134,11 @@ class MainActivity : AppCompatActivity(), OeuvreCreator {
             }
             R.id.action_Data -> {
                 displayAllData()
+                true
+            }
+            R.id.action_maps -> {
+                displayMapsFragment()
+                allInvisible()
                 true
             }
             R.id.action_info -> {
