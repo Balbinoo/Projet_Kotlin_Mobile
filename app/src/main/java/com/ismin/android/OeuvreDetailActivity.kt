@@ -1,48 +1,61 @@
 package com.ismin.android
 
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import com.bumptech.glide.Glide
 
 class OeuvreDetailActivity : AppCompatActivity() {
 
-    private lateinit var titreTextView: TextView
-    private lateinit var anneeTextView: TextView
-    private lateinit var idOeuvreTextView: TextView
-    private lateinit var idExpositionTextView: TextView
-    private lateinit var photoImageView: ImageView
+    private lateinit var viewHolder: OeuvreViewDetailsHolder
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.fragment_detail_oeuvre)
+        setContentView(R.layout.activity_detail_oeuvre)
 
-        // Initialize views
-        titreTextView = findViewById(R.id.r_detail_titre)
-        anneeTextView = findViewById(R.id.r_detail_annee)
-        idOeuvreTextView = findViewById(R.id.r_detail_id_oeuvre)
-        idExpositionTextView = findViewById(R.id.r_detail_id_exposition)
-        photoImageView = findViewById(R.id.r_detail_img_PhotoUrl)
+        // Initialize the ViewHolder with the root View of the Activity
+        viewHolder = OeuvreViewDetailsHolder(findViewById(android.R.id.content))
 
         // Get the data passed from the adapter
-        val titre = intent.getStringExtra("titre")
-        val annee = intent.getStringExtra("annee")
-        val idOeuvre = intent.getStringExtra("id_oeuvre")
-        val idExposition = intent.getStringExtra("id_exposition")
-        val photoUrl = intent.getStringExtra("photo_url2")
+        val oeuvre = intent.getSerializableExtra("oeuvre") as? Oeuvre
 
-        // Display the data
-        titreTextView.text = titre
-        anneeTextView.text = annee
-        idOeuvreTextView.text = idOeuvre
-        idExpositionTextView.text = idExposition
+        val titre = oeuvre?.titre
+        val annee = oeuvre?.annee
+        val idOeuvre = oeuvre?.id_oeuvre
+        val idExposition = oeuvre?.id_exposition
+        val dimension = oeuvre?.dimension
+        val matiere = oeuvre?.matiere
+        val photoUrl = oeuvre?.photo_url2
+        val collection = oeuvre?.collection
+        val textePresentation = oeuvre?.texte_presentation
+        val emplacement = oeuvre?.emplacement
+        val photoAuteur = oeuvre?.photo_auteur
+        val photoNomFichier = oeuvre?.photo_nomfichier
+        val repereMaps = oeuvre?.oeuvre_repere_maps
+
+        if (oeuvre != null) {
+            Log.d("OeuvreDetailActivity", "id_oeuvre: ${oeuvre.id_oeuvre}, titre: ${oeuvre.titre}")
+        }
+
+        // Bind the data to the views using the ViewHolder
+        viewHolder.txvTitre.text = titre
+        viewHolder.txvAnnee.text = annee
+        viewHolder.txvIdOeuvre.text = idOeuvre
+        viewHolder.txvIdExposition.text = idExposition
+        viewHolder.txvDimension.text = dimension
+        viewHolder.txvMatiere.text = matiere
+        viewHolder.txvCollection.text = collection
+        viewHolder.txvTextePresentation.text = textePresentation
+        viewHolder.txvEmplacement.text = emplacement
+        viewHolder.txvPhotoAuteur.text = photoAuteur
+        viewHolder.txvOeuvreRepereMaps.text = repereMaps
+        viewHolder.txvPhotoNomfichier.text = photoNomFichier
+
 
         // Load image using Glide
-        Glide.with(this).load(photoUrl).into(photoImageView)
+        Glide.with(this).load(photoUrl).into(viewHolder.imgPhotoUrl2)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

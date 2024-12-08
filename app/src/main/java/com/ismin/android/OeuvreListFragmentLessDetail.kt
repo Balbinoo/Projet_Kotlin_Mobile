@@ -1,10 +1,8 @@
 package com.ismin.android
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -32,14 +30,6 @@ class OeuvreListFragmentLessDetail : Fragment() {
         val rootView = inflater.inflate(R.layout.fragment_oeuvre_list_less_details, container, false)
 
         recyclerView = rootView.findViewById(R.id.f_oeuvre_list_rcv_oeuvres_lessDetails)
-        // Access FragmentManager directly here
-        // Inside MainActivity or the activity using the adapter
-        val containerId = R.id.a_fragment_detail_oeuvre // ID of your fragment container
-        //val adapter = OeuvreAdapter(oeuvresList, supportFragmentManager, )
-        //recyclerView.adapter = adapter
-
-
-        val fragmentManager = parentFragmentManager // Or use requireActivity().supportFragmentManager if needed
         oeuvreAdapter = OeuvreAdapter(oeuvres)
         recyclerView.adapter = oeuvreAdapter
         recyclerView.layoutManager = LinearLayoutManager(context)

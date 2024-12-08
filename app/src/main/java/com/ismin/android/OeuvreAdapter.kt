@@ -3,6 +3,7 @@ package com.ismin.android
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -27,6 +28,8 @@ class OeuvreAdapter(
         holder.txvIdExposition.text = oeuvre.id_exposition
         holder.txvTitre.text = oeuvre.titre
         holder.txvAnnee.text = oeuvre.annee
+        //holder.txvDimension.text = oeuvre.dimension
+        //holder.txvMatiere.text = oeuvre.matiere
 
         // Load image from URL using Glide
         Glide.with(holder.imgPhotoUrl2.context)
@@ -44,12 +47,7 @@ class OeuvreAdapter(
         // Create an intent to launch OeuvreDetailActivity
         val intent = Intent(context, OeuvreDetailActivity::class.java)
 
-        // Pass the data to the new activity using intent extras
-        intent.putExtra("titre", oeuvre.titre)
-        intent.putExtra("annee", oeuvre.annee)
-        intent.putExtra("id_oeuvre", oeuvre.id_oeuvre)
-        intent.putExtra("id_exposition", oeuvre.id_exposition)
-        intent.putExtra("photo_url2", oeuvre.photo_url2) // Pass image URL
+        intent.putExtra("oeuvre",oeuvre)
 
         // Start the activity
         context.startActivity(intent)

@@ -76,7 +76,7 @@ class MainActivity : AppCompatActivity(), OeuvreCreator {
         val fragmentTransaction = supportFragmentManager.beginTransaction()
         //declares new fragment listfragçentLessDetail
         val oeuvreListFragmentLessDetail = OeuvreListFragmentLessDetail.newInstance(
-            compositionOeuvres.getSpecificOeuvresData(),
+            compositionOeuvres.getAllOeuvres(),
         )
         //replaces the actual fragment with the one created
         fragmentTransaction.replace(R.id.a_main_lyt_container_oeuvre, oeuvreListFragmentLessDetail)
