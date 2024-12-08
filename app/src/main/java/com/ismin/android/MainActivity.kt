@@ -21,42 +21,29 @@ const val SERVER_BASE_URL = "https://app-96fe8c94-9085-4eab-b051-80432bfa2281.cl
 class MainActivity : AppCompatActivity(), OeuvreCreator {
 
     private val compositionOeuvres = CompositionOeuvres()
-
     private val retrofit = Retrofit.Builder().addConverterFactory(GsonConverterFactory.create())
         .baseUrl(SERVER_BASE_URL).build()
     private val oeuvreService = retrofit.create(OeuvreService::class.java)
+    private val btnCreateOeuvre: FloatingActionButton by lazy { findViewById(R.id.a_main_btn_create_oeuvre) }
+    private val txtWelcome: TextView by lazy { findViewById(R.id.a_main_txt_welcome) }
+    private val btnGetAll: Button by lazy { findViewById(R.id.a_main_btn_getAll_oeuvre) }
+    //private val btnDescription: Button by lazy { findViewById(R.id.r_oeuvre_btn_details) }
 
-    private val btnCreateOeuvre: FloatingActionButton by lazy {
-        findViewById(R.id.a_main_btn_create_oeuvre)
-    }
 
-    private val txtWelcome: TextView by lazy {
-        findViewById(R.id.a_main_txt_welcome)
-    }
-
-    private val btnGetAll: Button by lazy {
-        findViewById(R.id.a_main_btn_getAll_oeuvre)
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_oeuvre)
 
-        btnGetAll.setOnClickListener {
-            // Listen if button is pressed
-            displayAllData()
-        }
-
-        btnCreateOeuvre.setOnClickListener {
-            // Listen if button is pressed
-            displayCreateOeuvreFragment()
-        }
+        btnGetAll.setOnClickListener { displayAllData() }
+        btnCreateOeuvre.setOnClickListener { displayCreateOeuvreFragment() }
+        //btnDescription.setOnClickListener { test() }
     }
 
     private fun displayAllData(){
         btnGetAll.visibility = View.INVISIBLE
         txtWelcome.visibility = View.INVISIBLE
-        // Listen if button is pressed
+
         oeuvreService.getAllOeuvres().enqueue(object : Callback<List<Oeuvre>> {
 
             override fun onResponse(call: Call<List<Oeuvre>>, response: Response<List<Oeuvre>>) {
@@ -86,10 +73,9 @@ class MainActivity : AppCompatActivity(), OeuvreCreator {
     }
 
     private fun displayOeuvreListFragment() {
-        // If it is fetched onCreate
         val fragmentTransaction = supportFragmentManager.beginTransaction()
-        val oeuvreListFragment = OeuvreListFragment.newInstance(compositionOeuvres.getAllOeuvres())
-        fragmentTransaction.replace(R.id.a_main_lyt_container_oeuvre, oeuvreListFragment)
+        val oeuvreListFragmentLessDetail = OeuvreListFragmentLessDetail.newInstance(compositionOeuvres.getSpecificOeuvresData())
+        fragmentTransaction.replace(R.id.a_main_lyt_container_oeuvre, oeuvreListFragmentLessDetail)
         fragmentTransaction.commit()
         btnCreateOeuvre.visibility = View.VISIBLE
     }
@@ -116,20 +102,20 @@ class MainActivity : AppCompatActivity(), OeuvreCreator {
                 true
             }
             R.id.action_info -> {
-                // Hide the data-related views and show the initial UI elements.
                 if (txtWelcome.visibility == View.INVISIBLE) {
                     btnGetAll.visibility = View.VISIBLE
                     txtWelcome.visibility = View.VISIBLE
-                    // If you want to clear the fragments or hide them:
-                    supportFragmentManager.beginTransaction().remove(supportFragmentManager.findFragmentById(R.id.a_main_lyt_container_oeuvre)!!).commit()
+
+                    val fragment = supportFragmentManager.findFragmentById(R.id.a_main_lyt_container_oeuvre)
+                    if (fragment != null) {
+                        supportFragmentManager.beginTransaction().remove(fragment).commit()
+                    }
                 }
-                true // Ensure a Boolean value is returned
+                true
             }
             else -> super.onOptionsItemSelected(item)
         }
     }
-
-
 
 
     override fun onOeuvreCreated(oeuvre: Oeuvre) {

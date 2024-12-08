@@ -1,5 +1,4 @@
 package com.ismin.android
-
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 
 private const val OEUVRES = "oeuvres"
 
-class OeuvreListFragment : Fragment() {
+class OeuvreListFragmentLessDetail : Fragment() {
     private lateinit var oeuvres: ArrayList<Oeuvre>
     private lateinit var oeuvreAdapter: OeuvreAdapter
     private lateinit var recyclerView: RecyclerView
@@ -28,9 +27,9 @@ class OeuvreListFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val rootView = inflater.inflate(R.layout.fragment_oeuvre_list, container, false)
+        val rootView = inflater.inflate(R.layout.fragment_oeuvre_list_less_details, container, false)
 
-        recyclerView = rootView.findViewById(R.id.f_oeuvre_list_rcv_oeuvres)
+        recyclerView = rootView.findViewById(R.id.f_oeuvre_list_rcv_oeuvres_lessDetails)
         oeuvreAdapter = OeuvreAdapter(oeuvres)
         recyclerView.adapter = oeuvreAdapter
         recyclerView.layoutManager = LinearLayoutManager(context)
@@ -47,7 +46,7 @@ class OeuvreListFragment : Fragment() {
     companion object {
         @JvmStatic
         fun newInstance(oeuvres: ArrayList<Oeuvre>) =
-            OeuvreListFragment().apply {
+            OeuvreListFragmentLessDetail().apply {
                 arguments = Bundle().apply {
                     putSerializable(OEUVRES, oeuvres)
                 }

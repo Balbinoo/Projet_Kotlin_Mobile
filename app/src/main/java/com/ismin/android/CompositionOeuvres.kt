@@ -17,6 +17,19 @@ class CompositionOeuvres {
             .sortedBy { oeuvre -> oeuvre.id_oeuvre })
     }
 
+    fun getSpecificOeuvresData(): ArrayList<Oeuvre> {
+        return ArrayList(storage.values.sortedBy { oeuvre -> oeuvre.id_oeuvre }.map { oeuvre ->
+            // Create a new Oeuvre with only the necessary fields
+            Oeuvre(
+                id_exposition = oeuvre.id_exposition,
+                id_oeuvre = oeuvre.id_oeuvre,
+                titre = oeuvre.titre,
+                annee = oeuvre.annee,
+                photo_url2 = oeuvre.photo_url2
+            )
+        })
+    }
+
     fun getOeuvreOf(id_exposition: String): List<Oeuvre> {
         return storage.filterValues { oeuvre -> oeuvre.id_exposition.equals(id_exposition) }
          .values
