@@ -37,7 +37,6 @@ class MainActivity : AppCompatActivity(), OeuvreCreator {
 
         btnGetAll.setOnClickListener { displayAllData() }
         btnCreateOeuvre.setOnClickListener { displayCreateOeuvreFragment() }
-        //btnDescription.setOnClickListener { test() }
     }
 
     private fun displayAllData(){
@@ -73,8 +72,13 @@ class MainActivity : AppCompatActivity(), OeuvreCreator {
     }
 
     private fun displayOeuvreListFragment() {
+        //declares the fragment transaction
         val fragmentTransaction = supportFragmentManager.beginTransaction()
-        val oeuvreListFragmentLessDetail = OeuvreListFragmentLessDetail.newInstance(compositionOeuvres.getSpecificOeuvresData())
+        //declares new fragment listfragçentLessDetail
+        val oeuvreListFragmentLessDetail = OeuvreListFragmentLessDetail.newInstance(
+            compositionOeuvres.getSpecificOeuvresData(),
+        )
+        //replaces the actual fragment with the one created
         fragmentTransaction.replace(R.id.a_main_lyt_container_oeuvre, oeuvreListFragmentLessDetail)
         fragmentTransaction.commit()
         btnCreateOeuvre.visibility = View.VISIBLE

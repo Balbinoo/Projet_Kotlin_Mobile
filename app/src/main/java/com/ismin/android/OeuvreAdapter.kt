@@ -1,18 +1,21 @@
 package com.ismin.android
-import android.util.Log
+
+import android.content.Context
+import android.content.Intent
+import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 
-class OeuvreAdapter(private var oeuvres: List<Oeuvre>) : RecyclerView.Adapter<OeuvreViewHolder>() {
+class OeuvreAdapter(
+    private var oeuvres: List<Oeuvre>
+) : RecyclerView.Adapter<OeuvreViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OeuvreViewHolder {
         val rowView = LayoutInflater.from(parent.context)
             .inflate(R.layout.row_oeuvre_less_details, parent, false)
-
         return OeuvreViewHolder(rowView)
     }
 
@@ -32,24 +35,27 @@ class OeuvreAdapter(private var oeuvres: List<Oeuvre>) : RecyclerView.Adapter<Oe
 
         // Set up button click listener
         holder.detailButton.setOnClickListener {
-            showDetails(holder.detailButton.context, oeuvre)
+            // Call showDetails method and pass the necessary context
+            showDetails(oeuvre, holder.itemView.context)
         }
     }
 
-    private fun showDetails(context: android.content.Context, oeuvre: Oeuvre) {
-        Log.d("Button Pressed!", "Details button clicked for Oeuvre: ${oeuvre.titre}")
+    private fun showDetails(oeuvre: Oeuvre, context: Context) {
+        // Create an intent to launch OeuvreDetailActivity
+        val intent = Intent(context, OeuvreDetailActivity::class.java)
 
-        // Show a Toast message
-        Toast.makeText(
-            context, // Context from the button
-            "Details button clicked for: ${oeuvre.titre}", // Message to display
-            Toast.LENGTH_SHORT // Duration of the message
-        ).show()
+        // Pass the data to the new activity using intent extras
+        intent.putExtra("titre", oeuvre.titre)
+        intent.putExtra("annee", oeuvre.annee)
+        intent.putExtra("id_oeuvre", oeuvre.id_oeuvre)
+        intent.putExtra("id_exposition", oeuvre.id_exposition)
+        intent.putExtra("photo_url2", oeuvre.photo_url2) // Pass image URL
+
+        // Start the activity
+        context.startActivity(intent)
     }
 
-    override fun getItemCount(): Int {
-        return oeuvres.size
-    }
+    override fun getItemCount(): Int = oeuvres.size
 
     fun updateOeuvres(allOeuvres: List<Oeuvre>) {
         oeuvres = allOeuvres
