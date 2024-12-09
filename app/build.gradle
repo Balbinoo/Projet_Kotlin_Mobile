@@ -3,9 +3,11 @@ plugins {
     alias(libs.plugins.kotlin.android)
 }
 
+def MAPS_API_KEY = project.findProperty("MAPS_API_KEY") ?: System.getenv("MAPS_API_KEY")
+
 android {
     namespace 'com.ismin.android'
-    compileSdk 34
+    compileSdk 35
 
     defaultConfig {
         applicationId "com.ismin.android"
@@ -13,7 +15,9 @@ android {
         targetSdk 34
         versionCode 1
         versionName "1.0"
-
+        manifestPlaceholders = [
+                MAPS_API_KEY: MAPS_API_KEY ?: ""
+        ]
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -24,15 +28,18 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
     }
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = '11'
     }
 }
 
 dependencies {
+    // Google Maps and Location Services
+    implementation("com.google.android.gms:play-services-maps:18.1.0")
+    implementation("com.google.android.gms:play-services-location:21.0.1") // Optional for location features
     implementation 'com.github.bumptech.glide:glide:4.15.1'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.15.1'
     implementation libs.androidx.core.ktx
