@@ -7,165 +7,196 @@
     android:padding="16dp"
     tools:context=".MainActivity">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/a_info_lyt_container_oeuvre"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@android:color/white"
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <!-- Title -->
-        <TextView
-            android:id="@+id/info_Titre"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:text="Oeuvres - Exposition du Musée des Beaux Arts - Orléans Métropole"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:gravity="center"
-            android:textColor="@android:color/black"
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
 
-        <!-- Dataset Identifier -->
-        <TextView
-            android:id="@+id/info_identifiant"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginStart="16dp"
-            android:text="Identifiant du jeu de données:"
-            android:textSize="14sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/info_Titre" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
 
-        <TextView
-            android:id="@+id/info_ident_lien"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:text="om-culture-moba-exposition-oeuvre@orleansmetropole"
-            android:textSize="14sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/info_identifiant" />
+                <!-- Title -->
+                <TextView
+                    android:id="@+id/info_Titre"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="24dp"
+                    android:text="Oeuvres - Exposition du Musée des Beaux Arts - Orléans Métropole"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:textColor="@android:color/black" />
 
-        <!-- Source -->
-        <TextView
-            android:id="@+id/info_Source"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:text="Source: Portail Open Data Orléans Métropole"
-            android:textSize="14sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/info_ident_lien" />
+                <!-- Dataset Identifier -->
+                <TextView
+                    android:id="@+id/info_identifiant"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="Identifiant du jeu de données:"
+                    android:textSize="14sp"
+                    android:textColor="@android:color/black" />
 
-        <!-- Description -->
-        <TextView
-            android:id="@+id/info_description"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginHorizontal="8dp"
-            android:text="The information provided is a detailed catalog of sculptures from exhibitions by two prominent contemporary artists, Markus Lüpertz and Johan Creten, displayed in Orléans, France. These works span a variety of themes, styles, and techniques, emphasizing mythological, historical, and symbolic narratives."
-            android:textSize="14sp"
-            android:textColor="@android:color/black"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/info_Source" />
+                <TextView
+                    android:id="@+id/info_ident_lien"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="om-culture-moba-exposition-oeuvre@orleansmetropole"
+                    android:textSize="14sp"
+                    android:gravity="center"
+                    android:textColor="@android:color/black" />
 
-        <!-- Presentation -->
-        <TextView
-            android:id="@+id/info_presentation2"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:layout_marginHorizontal="8dp"
-            android:text="This collection showcases the intersection of classical inspiration and modern innovation, reflecting the artists' deep engagement with form, narrative, and material experimentation."
-            android:textSize="14sp"
-            android:textColor="@android:color/black"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/info_description" />
+                <!-- Source -->
+                <TextView
+                    android:id="@+id/info_Source"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:text="Source: Portail Open Data Orléans Métropole"
+                    android:textSize="14sp"
+                    android:gravity="center"
+                    android:textColor="@android:color/black" />
 
-        <!-- Downloads -->
-        <TextView
-            android:id="@+id/info_telecharge"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:text="Téléchargements: 7 407"
-            android:textSize="14sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/info_presentation2" />
+                <!-- Description -->
+                <TextView
+                    android:id="@+id/info_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:text="The information provided is a detailed catalog of sculptures from exhibitions by two prominent contemporary artists, Markus Lüpertz and Johan Creten, displayed in Orléans, France. These works span a variety of themes, styles, and techniques, emphasizing mythological, historical, and symbolic narratives."
+                    android:textSize="14sp"
+                    android:textColor="@android:color/black" />
 
-        <!-- Theme -->
-        <TextView
-            android:id="@+id/info_theme"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Thèmes: Culture, Patrimoine"
-            android:textSize="14sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/info_telecharge" />
+                <!-- Sculptures -->
+                <TextView
+                    android:id="@+id/info_scupltures"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="The sculptures are predominantly crafted in bronze, often with painted or patinated finishes. Techniques such as lost-wax casting and the addition of vibrant colors highlight the artists' focus on form and texture."
+                    android:textColor="@android:color/black"
+                    android:textSize="14sp" />
 
-        <!-- License -->
-        <TextView
-            android:id="@+id/info_licence"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:text="Licence: Licence Ouverte v2.0 (Etalab)"
-            android:textSize="14sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/info_theme" />
+                <TextView
+                    android:id="@+id/info_lupertz"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="Lüpertz explores classical mythology and historical figures, reinterpreting them with a modern sensibility. Examples include Achilles, Ulysses, Athena, and Daphne. His work often blends the monumental and the abstract, drawing from Greek and Roman traditions."
+                    android:textSize="14sp"
+                    android:textColor="@android:color/black" />
 
-        <!-- Modification Date -->
-        <TextView
-            android:id="@+id/info_modifie"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:text="Modifié: 7 décembre 2024 23:00"
-            android:textSize="14sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/info_licence" />
+                <TextView
+                    android:id="@+id/info_creten"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="Creten incorporates fable-like narratives, personal reflections, and natural motifs, symbolizing broader social and existential themes. His works, such as Strange Fruit and La Mamma Morta, delve into human vulnerability, transformation, and resilience."
+                    android:textSize="14sp"
+                    android:textColor="@android:color/black" />
 
-        <!-- Producer -->
-        <TextView
-            android:id="@+id/info_producteur"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:text="Producteur: Musée des Beaux Arts - Orléans Métropole"
-            android:textSize="14sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/info_modifie" />
+                <TextView
+                    android:id="@+id/info_both"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="Lüpertz's influences include Rodin, Giacometti, and classical antiquity, emphasizing the integration of painting and sculpture. Creten draws from mythology, literature, and animal symbolism, portraying complex human emotions and social commentaries."
+                    android:textColor="@android:color/black" />
 
-        <!-- Last Treatment -->
-        <TextView
-            android:id="@+id/info_dernier_traitement"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:layout_marginHorizontal="8dp"
-            android:text="Dernier traitement: 7 décembre 2024 23:00 (métadonnées) 7 décembre 2024 23:00 (données)"
-            android:textSize="14sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/info_producteur" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+                <TextView
+                    android:id="@+id/info_presentation2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:text="These sculptures are often placed in public spaces, such as parks, museums, and historical landmarks in Orléans. The installations aim to engage the urban environment and the community, making art accessible and resonant with contemporary life. This collection showcases the intersection of classical inspiration and modern innovation, reflecting the artists' deep engagement with form, narrative, and material experimentation."
+                    android:textColor="@android:color/black"
+                    android:textSize="14sp" />
+
+                <!-- Downloads -->
+                <TextView
+                    android:id="@+id/info_telecharge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="Téléchargements: 7 407"
+                    android:textSize="14sp"
+                    android:gravity="center"
+                    android:textColor="@android:color/black" />
+
+                <!-- Theme -->
+                <TextView
+                    android:id="@+id/info_theme"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="Thèmes: Culture, Patrimoine"
+                    android:textSize="14sp"
+                    android:gravity="center"
+                    android:textColor="@android:color/black" />
+
+                <!-- License -->
+                <TextView
+                    android:id="@+id/info_licence"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="Licence: Licence Ouverte v2.0 (Etalab)"
+                    android:textSize="14sp"
+                    android:gravity="center"
+                    android:textColor="@android:color/black" />
+
+                <!-- Modification Date -->
+                <TextView
+                    android:id="@+id/info_modifie"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="Modifié: 7 décembre 2024 23:00"
+                    android:textSize="14sp"
+                    android:gravity="center"
+                    android:textColor="@android:color/black" />
+
+                <!-- Producer -->
+                <TextView
+                    android:id="@+id/info_producteur"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="Producteur: Musée des Beaux Arts - Orléans Métropole"
+                    android:textSize="14sp"
+                    android:gravity="center"
+                    android:textColor="@android:color/black" />
+
+                <!-- Last Treatment -->
+                <TextView
+                    android:id="@+id/info_dernier_traitement"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="Dernier traitement: 7 décembre 2024 23:00 (métadonnées) 7 décembre 2024 23:00 (données)"
+                    android:textSize="14sp"
+                    android:gravity="center"
+                    android:textColor="@android:color/black" />
+            </LinearLayout>
+
+        </ScrollView>
+
+
+    </ScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
