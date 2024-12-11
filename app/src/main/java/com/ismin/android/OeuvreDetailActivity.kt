@@ -60,14 +60,14 @@ class OeuvreDetailActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         // Inflate the menu for the toolbar
-        menuInflater.inflate(R.menu.menu_main, menu)
+        menuInflater.inflate(R.menu.menu_back, menu)
         return super.onCreateOptionsMenu(menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             // Handle the menu item action
-            R.id.action_info -> {
+            R.id.action_back -> {
                 // This will close OeuvreDetailActivity and return to the MainActivity
                 finish()
                 true
