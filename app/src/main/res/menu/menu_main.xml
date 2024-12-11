@@ -5,6 +5,10 @@
 
     <!-- Info Menu Item -->
     <item
+        android:id="@+id/action_update"
+        android:title="update"
+        app:showAsAction="always" />
+    <item
         android:id="@+id/action_Data"
         android:title="Data"
         app:showAsAction="always" />

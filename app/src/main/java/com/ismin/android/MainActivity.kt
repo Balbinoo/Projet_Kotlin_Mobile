@@ -4,12 +4,8 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
-import android.widget.Button
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -24,56 +20,38 @@ class MainActivity : AppCompatActivity(), OeuvreCreator {
     private val retrofit = Retrofit.Builder().addConverterFactory(GsonConverterFactory.create())
         .baseUrl(SERVER_BASE_URL).build()
     private val oeuvreService = retrofit.create(OeuvreService::class.java)
-    //private val
-    //private val txtWelcome: TextView by lazy { findViewById(R.id.a_main_txt_welcome) }
-    private val titre: TextView by lazy { findViewById(R.id.r_main_Titre) }
-    private val identifiant: TextView by lazy { findViewById(R.id.info_identifiant) }
-    private val identLien: TextView by lazy { findViewById(R.id.info_ident_lien) }
-    private val sourc: TextView by lazy { findViewById(R.id.info_Source) }
-    private val theme: TextView by lazy { findViewById(R.id.info_theme) }
-    private val licenc: TextView by lazy { findViewById(R.id.info_licence) }
-    private val modif: TextView by lazy { findViewById(R.id.info_modifie) }
-    private val prod: TextView by lazy { findViewById(R.id.info_producteur) }
-    private val presen2: TextView by lazy { findViewById(R.id.info_presentation2) }
-    private val traitem: TextView by lazy { findViewById(R.id.info_dernier_traitement) }
-    private val descrip: TextView by lazy { findViewById(R.id.info_description) }
-    private val tele: TextView by lazy { findViewById(R.id.info_telecharge) }
 
-    private fun setVisibility(visibility: Int, vararg views: View) {
-        views.forEach { it.visibility = visibility }
+    override fun onOeuvreCreated(oeuvre: Oeuvre) {
+        // I don't know what it does write on top of
+        oeuvreService.createOeuvre(oeuvre)
+            .enqueue {
+                onResponse = {
+                    val oeuvreFromServer: Oeuvre? = it.body()
+                    compositionOeuvres.addOeuvre(oeuvreFromServer!!)
+                    displayOeuvreListFragment()
+                }
+                onFailure = {
+                    Toast.makeText(this@MainActivity, it?.message, Toast.LENGTH_SHORT).show()
+                }
+            }
     }
-
-    private fun allInvisible() {
-        setVisibility(View.INVISIBLE, titre, identifiant, identLien, sourc, theme, licenc, modif, prod, presen2, traitem, descrip, tele)
-    }
-
-    private fun allVisible() {
-        setVisibility(View.VISIBLE, titre, identifiant, identLien, sourc, theme, licenc, modif, prod, presen2, traitem, descrip, tele)
-    }
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main_oeuvre)
+        setContentView(R.layout.main_fragment)
     }
 
     private fun displayAllData(){
-        allInvisible()
-
         oeuvreService.getAllOeuvres().enqueue(object : Callback<List<Oeuvre>> {
 
             override fun onResponse(call: Call<List<Oeuvre>>, response: Response<List<Oeuvre>>) {
-                Log.d("inside the oncreatee", "Did it get in here????")
-                Log.d("MainActivity", "Response: ${response.body()}")
-
                 // Get the list of all oeuvres
                 val allOeuvres: List<Oeuvre>? = response.body()
 
-                // Filter the list to remove invalid oeuvres
-                val validOeuvres = allOeuvres?.filter { isValidOeuvre(it) } ?: emptyList()
-
                 // Add valid oeuvres to CompositionOeuvres
-                validOeuvres.forEach { compositionOeuvres.addOeuvre(it) }
+                if (allOeuvres != null) {
+                    allOeuvres.forEach { compositionOeuvres.addOeuvre(it) }
+                }
 
                 // Display the list of oeuvres
                 displayOeuvreListFragment()
@@ -96,25 +74,30 @@ class MainActivity : AppCompatActivity(), OeuvreCreator {
             compositionOeuvres.getAllOeuvres(),
         )
         //replaces the actual fragment with the one created
-        fragmentTransaction.replace(R.id.a_main_lyt_container_oeuvre, oeuvreListFragmentLessDetail)
+        fragmentTransaction.replace(R.id.a_info_lyt_container_oeuvre, oeuvreListFragmentLessDetail)
+        fragmentTransaction.commit()
+    }
+
+    private fun displayInfo(){
+        val fragmentTransaction = supportFragmentManager.beginTransaction()
+        val oeuvreinfoFragment = InfoFragment()
+        fragmentTransaction.replace(R.id.a_info_lyt_container_oeuvre, oeuvreinfoFragment)
         fragmentTransaction.commit()
     }
 
     private fun displayMapsFragment() {
-        // If button is pressed
         val fragmentTransaction = supportFragmentManager.beginTransaction()
         val mapsFragment = MapsFragment.newInstance(
             compositionOeuvres.getAllOeuvres(),
             )
-        fragmentTransaction.replace(R.id.a_main_lyt_container_oeuvre, mapsFragment)
+        fragmentTransaction.replace(R.id.a_info_lyt_container_oeuvre, mapsFragment)
         fragmentTransaction.commit()
     }
 
     private fun displayCreateOeuvreFragment() {
-        // If button is pressed
         val fragmentTransaction = supportFragmentManager.beginTransaction()
         val createOeuvreFragment = CreateOeuvreFragment()
-        fragmentTransaction.replace(R.id.a_main_lyt_container_oeuvre, createOeuvreFragment)
+        fragmentTransaction.replace(R.id.a_info_lyt_container_oeuvre, createOeuvreFragment)
         fragmentTransaction.commit()
     }
 
@@ -138,20 +121,16 @@ class MainActivity : AppCompatActivity(), OeuvreCreator {
                 displayAllData()
                 true
             }
+            R.id.action_update -> {
+                //updateData()
+                true
+            }
             R.id.action_maps -> {
                 displayMapsFragment()
-                allInvisible()
                 true
             }
             R.id.action_info -> {
-                if (identifiant.visibility == View.INVISIBLE) {
-                    allVisible()
-
-                    val fragment = supportFragmentManager.findFragmentById(R.id.a_main_lyt_container_oeuvre)
-                    if (fragment != null) {
-                        supportFragmentManager.beginTransaction().remove(fragment).commit()
-                    }
-                }
+                displayInfo()
                 true
             }
             else -> super.onOptionsItemSelected(item)
@@ -159,37 +138,4 @@ class MainActivity : AppCompatActivity(), OeuvreCreator {
     }
 
 
-    override fun onOeuvreCreated(oeuvre: Oeuvre) {
-        // I don't know what it does write on top of
-        oeuvreService.createOeuvre(oeuvre)
-            .enqueue {
-                onResponse = {
-                    val oeuvreFromServer: Oeuvre? = it.body()
-                    compositionOeuvres.addOeuvre(oeuvreFromServer!!)
-                    displayOeuvreListFragment()
-                }
-                onFailure = {
-                    Toast.makeText(this@MainActivity, it?.message, Toast.LENGTH_SHORT).show()
-                }
-            }
-    }
-
-    // Validation function to check if the Oeuvre is valid
-    private fun isValidOeuvre(oeuvre: Oeuvre): Boolean {
-        // Ensure geo_point_2d is an object (not a malformed string) and other necessary fields
-        val isGeoPointValid = oeuvre.geo_point_2d != null
-                && oeuvre.geo_point_2d.lon != 0.0
-                && oeuvre.geo_point_2d.lat != 0.0
-
-        // Ensure required fields are not empty or malformed
-        val isTitleValid = !oeuvre.titre.isNullOrEmpty()
-        val isIdValid = !oeuvre.id_oeuvre.isNullOrEmpty()
-
-        // Log invalid oeuvres
-        if (!isGeoPointValid || !isTitleValid || !isIdValid) {
-            Log.e("MainActivity", "Invalid Oeuvre: $oeuvre")
-        }
-
-        return isGeoPointValid && isTitleValid && isIdValid
-    }
 }

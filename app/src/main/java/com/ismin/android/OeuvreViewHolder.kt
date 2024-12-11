@@ -15,12 +15,4 @@ class OeuvreViewHolder(rootView: View) : RecyclerView.ViewHolder(rootView) {
     var imgPhotoUrl2 = rootView.findViewById<ImageView>(R.id.r_oeuvre_img_PhotoUrl2)
     val detailButton: Button = itemView.findViewById(R.id.r_oeuvre_btn_details) // Button declaration
 
-    //var txvDimension = rootView.findViewById<TextView>(R.id.r_detail_dimension)
-    //var txvMatiere = rootView.findViewById<TextView>(R.id.r_detail_matiere)
-    //var txvCollection = rootView.findViewById<TextView>(R.id.r_oeuvre_txv_collection)
-    //var txvTextePresentation = rootView.findViewById<TextView>(R.id.r_oeuvre_txv_texte_presentation)
-    //var txvEmplacement = rootView.findViewById<TextView>(R.id.r_oeuvre_txv_emplacement)
-    //var txvPhotoAuteur = rootView.findViewById<TextView>(R.id.r_oeuvre_txv_photo_auteur)
-    //var txvOeuvreRepereMaps = rootView.findViewById<TextView>(R.id.r_oeuvre_txv_repere_maps)
-    //var txvPhotoNomfichier = rootView.findViewById<TextView>(R.id.r_oeuvre_txv_photo_nomfichier)
 }
