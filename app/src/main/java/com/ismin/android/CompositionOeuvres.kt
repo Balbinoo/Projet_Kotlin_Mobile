@@ -17,19 +17,8 @@ class CompositionOeuvres {
             .sortedBy { oeuvre -> oeuvre.id_oeuvre })
     }
 
-    fun getOeuvreOfIdExposition(id_exposition: String): List<Oeuvre> {
-        return storage.filterValues { oeuvre -> oeuvre.id_exposition.equals(id_exposition) }
-         .values
-         .sortedBy { oeuvre -> oeuvre.id_exposition  }
-    }
-
     fun getOeuvreOfIdOeuvre(id_oeuvre: String): Oeuvre {
         return storage[id_oeuvre] ?: throw Exception("Oeuvre not found with id_oeuvre: $id_oeuvre")
-    }
-
-
-    fun getTotalNumberOfOeuvres(): Int {
-        return storage.size
     }
 
     fun clear(){

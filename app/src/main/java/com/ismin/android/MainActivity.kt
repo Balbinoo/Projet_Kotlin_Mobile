@@ -14,7 +14,11 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 const val SERVER_BASE_URL = "https://app-96fe8c94-9085-4eab-b051-80432bfa2281.cleverapps.io/"
 
-class MainActivity : AppCompatActivity(), OeuvreCreator,OeuvreListFragmentLessDetail.OnFavoriteButtonClickListener {
+class MainActivity :
+    AppCompatActivity(),
+    OeuvreCreator,
+    OeuvreListFragmentLessDetail.OnFavoriteButtonClickListener,
+    Main_Fragment_presentation.OnStartButtonClickListener {
 
     private var menu: Menu? = null
     private val compositionOeuvres = CompositionOeuvres()
@@ -24,12 +28,16 @@ class MainActivity : AppCompatActivity(), OeuvreCreator,OeuvreListFragmentLessDe
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        onResume()
         displayMainFragment()
     }
 
+    override fun onStartButtonClicked() {
+        displayAllData()
+        onPause()
+    }
+
     override fun onOeuvreCreated(oeuvre: Oeuvre) {
-        // I don't know what it does write on top of
         oeuvreService.createOeuvre(oeuvre)
             .enqueue {
                 onResponse = {
@@ -43,8 +51,6 @@ class MainActivity : AppCompatActivity(), OeuvreCreator,OeuvreListFragmentLessDe
             }
     }
     override fun onPutFavoriteCreated(oeuvre: Oeuvre) {
-
-        Log.d("put", "inside onPutFavoriteCreated  ${oeuvre.id_oeuvre}")
         // Toggle the 'favorite' status of the Oeuvre
         oeuvre.favorite = !oeuvre.favorite
         // Proceed with API request
@@ -55,8 +61,6 @@ class MainActivity : AppCompatActivity(), OeuvreCreator,OeuvreListFragmentLessDe
                         Toast.makeText(this@MainActivity,
                             if (oeuvre.favorite) "Added to Favorites" else "Removed from Favorites",
                             Toast.LENGTH_SHORT).show()
-                            Log.d("put", "Deu bom dentro mesmo?: ${response.code()}, ${response.errorBody()?.string()}")
-
                     } else {
                         Toast.makeText(this@MainActivity, "Failed to update favorite status", Toast.LENGTH_SHORT).show()
                         Log.e("put", "Response error: ${response.code()}, ${response.errorBody()?.string()}")
@@ -84,7 +88,6 @@ class MainActivity : AppCompatActivity(), OeuvreCreator,OeuvreListFragmentLessDe
                     compositionOeuvres.removeOeuvre(oeuvre)
                     // Refresh the list in the UI
                     displayOeuvreListFragment()
-
                     Toast.makeText(this@MainActivity, "Oeuvre deleted successfully", Toast.LENGTH_SHORT).show()
                 } else {
                     Toast.makeText(this@MainActivity, "Failed to delete oeuvre", Toast.LENGTH_SHORT).show()
@@ -115,7 +118,6 @@ class MainActivity : AppCompatActivity(), OeuvreCreator,OeuvreListFragmentLessDe
                 // Display the list of oeuvres
                 displayOeuvreListFragment()
             }
-
             override fun onFailure(call: Call<List<Oeuvre>>, t: Throwable) {
                 Toast.makeText(baseContext, "Error: ${t.message}", Toast.LENGTH_LONG).show()
             }
@@ -128,10 +130,6 @@ class MainActivity : AppCompatActivity(), OeuvreCreator,OeuvreListFragmentLessDe
 
         // Get the list of oeuvres and sort them by id_oeuvre
         val sortedOeuvres = compositionOeuvres.getAllOeuvres().sortedByDescending { it.favorite }.toMutableList()
-
-        for (oeuvre in sortedOeuvres) {
-            Log.d("put", "${oeuvre.favorite} ${oeuvre.titre}")
-        }
 
         // Declares new fragment listfragmentLessDetail
         val oeuvreListFragmentLessDetail = OeuvreListFragmentLessDetail.newInstance(
@@ -179,7 +177,6 @@ class MainActivity : AppCompatActivity(), OeuvreCreator,OeuvreListFragmentLessDe
                     if (updatedOeuvres != null) {
                         updatedOeuvres.forEach { compositionOeuvres.addOeuvre(it) }
                     }
-
                     // Refresh the UI with the updated data
                     displayOeuvreListFragment()
                     Toast.makeText(this@MainActivity, "Data updated successfully", Toast.LENGTH_SHORT).show()
@@ -187,7 +184,6 @@ class MainActivity : AppCompatActivity(), OeuvreCreator,OeuvreListFragmentLessDe
                     Toast.makeText(this@MainActivity, "Failed to update data", Toast.LENGTH_SHORT).show()
                 }
             }
-
             override fun onFailure(call: Call<List<Oeuvre>>, t: Throwable) {
                 Toast.makeText(this@MainActivity, "Error updating data: ${t.message}", Toast.LENGTH_LONG).show()
             }
@@ -214,12 +210,20 @@ class MainActivity : AppCompatActivity(), OeuvreCreator,OeuvreListFragmentLessDe
         return super.onCreateOptionsMenu(menu)
     }
 
+    override fun onResume() {
+        super.onResume()
+        // Hide the action bar when the Main_Fragment_presentation is visible
+        supportActionBar?.hide()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        // Show the action bar again when the fragment is no longer visible
+        supportActionBar?.show()
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.action_main -> {
-                displayMainFragment()
-                true
-            }
             R.id.action_delete -> {
                 displayDeleteOeuvreFragment ()
                 true

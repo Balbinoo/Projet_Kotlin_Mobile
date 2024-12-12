@@ -15,7 +15,6 @@ class OeuvreDetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail_oeuvre)
 
-        // Initialize the ViewHolder with the root View of the Activity
         viewHolder = OeuvreViewDetailsHolder(findViewById(android.R.id.content))
 
         // Get the data passed from the adapter
@@ -52,7 +51,6 @@ class OeuvreDetailActivity : AppCompatActivity() {
         viewHolder.txvPhotoAuteur.text = photoAuteur
         viewHolder.txvOeuvreRepereMaps.text = repereMaps
         viewHolder.txvPhotoNomfichier.text = photoNomFichier
-
 
         // Load image using Glide
         Glide.with(this).load(photoUrl).into(viewHolder.imgPhotoUrl2)
