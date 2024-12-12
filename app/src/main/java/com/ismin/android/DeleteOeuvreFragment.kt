@@ -51,7 +51,6 @@ class DeleteOeuvreFragment(private val compositionOeuvres: CompositionOeuvres) :
         try {
             Toast.makeText(context, "IdDelete: $id_oeuvre", Toast.LENGTH_SHORT).show()
 
-            Toast.makeText(context, "IdDelete: ${compositionOeuvres.getAllOeuvres()}", Toast.LENGTH_SHORT).show()
             val oeuvre = compositionOeuvres.getOeuvreOfIdOeuvre(id_oeuvre)
 
             listener.onDeleteCreated(oeuvre)

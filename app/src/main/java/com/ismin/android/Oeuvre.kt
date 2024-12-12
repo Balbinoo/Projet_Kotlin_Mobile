@@ -18,5 +18,5 @@ data class Oeuvre(
     val oeuvre_repere_maps: String,
     val geo_point_2d: GeoPoint2D,
     val photo_url2: String,
-    var isFavorite: Boolean = false
+    var favorite: Boolean
 ) : Serializable

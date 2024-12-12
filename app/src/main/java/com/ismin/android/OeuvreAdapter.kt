@@ -7,17 +7,21 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.ismin.android.Oeuvre
+import com.ismin.android.OeuvreCreator
 import com.ismin.android.OeuvreDetailActivity
+import com.ismin.android.OeuvreListFragmentLessDetail
 import com.ismin.android.OeuvreViewHolder
 import com.ismin.android.R
 
 class OeuvreAdapter(
-    private var oeuvres: List<Oeuvre>
+    private var oeuvres: List<Oeuvre>,
+    private val listener: OeuvreListFragmentLessDetail.OnFavoriteButtonClickListener?
 ) : RecyclerView.Adapter<OeuvreViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OeuvreViewHolder {
         val rowView = LayoutInflater.from(parent.context)
             .inflate(R.layout.row_oeuvre_less_details, parent, false)
+
         return OeuvreViewHolder(rowView)
     }
 
@@ -35,55 +39,46 @@ class OeuvreAdapter(
             .load(oeuvre.photo_url2)
             .into(holder.imgPhotoUrl2)
 
+        // Update the favorite button icon based on the favorite status
+        updateFavoriteIcon(holder, oeuvre)
+
         // Set up button click listener for details
         holder.detailButton.setOnClickListener {
-            // Call showDetails method and pass the necessary context
-            Log.d("ButtonTest", "Favorite button clicked!")
-
             showDetails(oeuvre, holder.itemView.context)
         }
 
-        // Set up favorite button (ImageView) click listener
         holder.favoriteButton.setOnClickListener {
+            listener?.onPutFavoriteCreated(oeuvre)
             ajouterFavorite(oeuvre, holder)
-        }
-
-        // Ensure that the favorite button is clickable
-        holder.favoriteButton.isClickable = true
-        holder.favoriteButton.isFocusable = true
-        holder.favoriteButton.isEnabled = true
-
-        // Update the favorite button icon based on the favorite status
-        if (oeuvre.isFavorite) {
-            holder.favoriteButton.setImageResource(R.drawable.ic_star_filled) // Filled star
-        } else {
-            holder.favoriteButton.setImageResource(R.drawable.ic_star_empty) // Empty star
         }
     }
 
+
     private fun ajouterFavorite(oeuvre: Oeuvre, holder: OeuvreViewHolder) {
-        // Toggle the 'favorite' status of the Oeuvre
-        oeuvre.isFavorite = !oeuvre.isFavorite
-
-        // Log the favorite button press
-        Log.d("ButtonTest", "Favorite pressed for Oeuvre ID: ${oeuvre.id_oeuvre}, Is Favorite: ${oeuvre.isFavorite}")
-
         // Reorder the list so favorites come to the top
-        oeuvres = oeuvres.sortedByDescending { it.isFavorite }.toMutableList()
+        oeuvres = oeuvres.sortedByDescending { it.favorite }.toMutableList()
 
         // Change the icon based on whether it's a favorite
-        if (oeuvre.isFavorite) {
+        updateFavoriteIcon(holder, oeuvre)
+
+        // Use the Context from the ViewHolder to show the Toast
+        val context = holder.itemView.context
+        Toast.makeText(context, if (oeuvre.favorite) "Added to Favorites" else "Removed from Favorites", Toast.LENGTH_SHORT).show()
+
+        // Notify the adapter that the list has changed
+        notifyDataSetChanged()
+    }
+
+    private fun updateFavoriteIcon(holder: OeuvreViewHolder, oeuvre: Oeuvre) {
+        Log.d("put","Did it enter updateFavoriteICone??? ${oeuvre.id_oeuvre} ${oeuvre.id_oeuvre}")
+
+        if (oeuvre.favorite) {
             holder.favoriteButton.setImageResource(R.drawable.ic_star_filled) // Filled star
         } else {
             holder.favoriteButton.setImageResource(R.drawable.ic_star_empty) // Empty star
         }
 
-        // Use the Context from the ViewHolder to show the Toast
-        val context = holder.itemView.context
-        Toast.makeText(context, if (oeuvre.isFavorite) "Added to Favorites" else "Removed from Favorites", Toast.LENGTH_SHORT).show()
-
-        // Notify the adapter that the list has changed
-        notifyDataSetChanged()
+        //notifyDataSetChanged()
     }
 
     private fun showDetails(oeuvre: Oeuvre, context: Context) {
@@ -98,8 +93,9 @@ class OeuvreAdapter(
 
     override fun getItemCount(): Int = oeuvres.size
 
-    fun updateOeuvres(allOeuvres: List<Oeuvre>) {
+    fun updateData(allOeuvres: List<Oeuvre>) {
         oeuvres = allOeuvres
         notifyDataSetChanged()
     }
+
 }

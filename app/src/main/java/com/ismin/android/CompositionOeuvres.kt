@@ -40,6 +40,4 @@ class CompositionOeuvres {
         storage.remove(oeuvre.id_oeuvre) // Remove by id_oeuvre
     }
 
-
-
 }

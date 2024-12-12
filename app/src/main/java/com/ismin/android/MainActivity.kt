@@ -14,7 +14,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 const val SERVER_BASE_URL = "https://app-96fe8c94-9085-4eab-b051-80432bfa2281.cleverapps.io/"
 
-class MainActivity : AppCompatActivity(), OeuvreCreator {
+class MainActivity : AppCompatActivity(), OeuvreCreator,OeuvreListFragmentLessDetail.OnFavoriteButtonClickListener {
 
     private var menu: Menu? = null
     private val compositionOeuvres = CompositionOeuvres()
@@ -27,7 +27,6 @@ class MainActivity : AppCompatActivity(), OeuvreCreator {
 
         displayMainFragment()
     }
-
 
     override fun onOeuvreCreated(oeuvre: Oeuvre) {
         // I don't know what it does write on top of
@@ -43,7 +42,32 @@ class MainActivity : AppCompatActivity(), OeuvreCreator {
                 }
             }
     }
+    override fun onPutFavoriteCreated(oeuvre: Oeuvre) {
 
+        Log.d("put", "inside onPutFavoriteCreated  ${oeuvre.id_oeuvre}")
+        // Toggle the 'favorite' status of the Oeuvre
+        oeuvre.favorite = !oeuvre.favorite
+        // Proceed with API request
+        oeuvreService.putFavorite(oeuvre.id_oeuvre, oeuvre)
+            .enqueue(object : Callback<Void> {
+                override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                    if (response.isSuccessful) {
+                        Toast.makeText(this@MainActivity,
+                            if (oeuvre.favorite) "Added to Favorites" else "Removed from Favorites",
+                            Toast.LENGTH_SHORT).show()
+                            Log.d("put", "Deu bom dentro mesmo?: ${response.code()}, ${response.errorBody()?.string()}")
+
+                    } else {
+                        Toast.makeText(this@MainActivity, "Failed to update favorite status", Toast.LENGTH_SHORT).show()
+                        Log.e("put", "Response error: ${response.code()}, ${response.errorBody()?.string()}")
+                    }
+                }
+                override fun onFailure(call: Call<Void>, t: Throwable) {
+                    Toast.makeText(this@MainActivity, "Error: ${t.message}", Toast.LENGTH_SHORT).show()
+                    Log.e("put", "Request failed: ${t.message}")
+                }
+            })
+    }
 
     override fun onDeleteCreated(oeuvre: Oeuvre) {
         val idOeuvre = oeuvre.id_oeuvre
@@ -51,7 +75,6 @@ class MainActivity : AppCompatActivity(), OeuvreCreator {
             Toast.makeText(this, "Invalid ID", Toast.LENGTH_SHORT).show()
             return
         }
-
         // Call the delete API with the correct id_oeuvre
         oeuvreService.deleteOeuvre(idOeuvre).enqueue(object : Callback<Void> {
             override fun onResponse(call: Call<Void>, response: Response<Void>) {
@@ -59,7 +82,6 @@ class MainActivity : AppCompatActivity(), OeuvreCreator {
 
                     // Remove the oeuvre from the local data structure
                     compositionOeuvres.removeOeuvre(oeuvre)
-
                     // Refresh the list in the UI
                     displayOeuvreListFragment()
 
@@ -85,6 +107,9 @@ class MainActivity : AppCompatActivity(), OeuvreCreator {
                 val allOeuvres: List<Oeuvre>? = response.body()
                 // Add valid oeuvres to CompositionOeuvres
                 if (allOeuvres != null) {
+                    for (oeuvre in allOeuvres) {
+                        Log.d("display", "${oeuvre.favorite} ${oeuvre.titre}")
+                    }
                     allOeuvres.forEach { compositionOeuvres.addOeuvre(it) }
                 }
                 // Display the list of oeuvres
@@ -92,10 +117,7 @@ class MainActivity : AppCompatActivity(), OeuvreCreator {
             }
 
             override fun onFailure(call: Call<List<Oeuvre>>, t: Throwable) {
-                Log.d("Error directly?", "Did it get in here????")
                 Toast.makeText(baseContext, "Error: ${t.message}", Toast.LENGTH_LONG).show()
-                Log.d("Retrofit", "Request URL: ${call.request().url()}")
-                Log.e("MainActivity", "Error: ${t.message}")
             }
         })
     }
@@ -105,7 +127,11 @@ class MainActivity : AppCompatActivity(), OeuvreCreator {
         val fragmentTransaction = supportFragmentManager.beginTransaction()
 
         // Get the list of oeuvres and sort them by id_oeuvre
-        val sortedOeuvres = compositionOeuvres.getAllOeuvres().sortedBy { it.titre }
+        val sortedOeuvres = compositionOeuvres.getAllOeuvres().sortedByDescending { it.favorite }.toMutableList()
+
+        for (oeuvre in sortedOeuvres) {
+            Log.d("put", "${oeuvre.favorite} ${oeuvre.titre}")
+        }
 
         // Declares new fragment listfragmentLessDetail
         val oeuvreListFragmentLessDetail = OeuvreListFragmentLessDetail.newInstance(

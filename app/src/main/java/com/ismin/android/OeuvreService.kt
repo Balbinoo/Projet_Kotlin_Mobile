@@ -5,6 +5,7 @@ import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.PUT
 import retrofit2.http.Path
 
 
@@ -18,5 +19,8 @@ interface OeuvreService {
 
     @DELETE("oeuvres/delete/{id_oeuvre}")
     fun deleteOeuvre(@Path("id_oeuvre") id: String): Call<Void>
+
+    @PUT("oeuvres/put/{id_oeuvre}")
+    fun putFavorite(@Path("id_oeuvre") id: String, @Body updatedOeuvre: Oeuvre): Call<Void>
 
 }

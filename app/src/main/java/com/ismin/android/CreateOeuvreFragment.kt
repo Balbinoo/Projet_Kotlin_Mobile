@@ -20,7 +20,7 @@ class CreateOeuvreFragment : Fragment() {
     private lateinit var lEmplacement: EditText
     private lateinit var leTextePresentation: EditText
     private lateinit var saveBtn: Button
-    private  lateinit var listener: OeuvreCreator
+    private lateinit var listener: OeuvreCreator
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -72,6 +72,7 @@ class CreateOeuvreFragment : Fragment() {
         val photo_url2 = "https://github-production-user-asset-6210df.s3.amazonaws.com/54644626/394822720-53506455-da98-4937-8668-369a7aaecaee.jpeg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVCODYLSA53PQK4ZA%2F20241211%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20241211T160533Z&X-Amz-Expires=300&X-Amz-Signature=601829417749fd65e57a1736599caabfed8e14bff1fe43f82c5bd6c1716863c0&X-Amz-SignedHeaders=host"
         val dimension = "333 x 75,5 x 138 cm"
         val collection = "Collection?"
+        val favorite = false
 
         val oeuvre = Oeuvre(
             id_exposition,
@@ -87,7 +88,9 @@ class CreateOeuvreFragment : Fragment() {
             photo_auteur,
             oeuvre_repere_maps,
             geo_point_2d,
-            photo_url2)
+            photo_url2,
+            favorite
+        )
 
         listener.onOeuvreCreated(oeuvre)
 

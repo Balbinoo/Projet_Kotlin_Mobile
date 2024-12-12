@@ -1,13 +1,13 @@
 package com.ismin.android
 
 import OeuvreAdapter
+import android.content.Context
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.appcompat.widget.SearchView
 
 private const val OEUVRES = "oeuvres"
 
@@ -16,10 +16,29 @@ class OeuvreListFragmentLessDetail : Fragment() {
     private lateinit var oeuvreAdapter: OeuvreAdapter
     private lateinit var recyclerView: RecyclerView
 
+    // Define the interface
+    interface OnFavoriteButtonClickListener {
+        fun onPutFavoriteCreated(oeuvre: Oeuvre)
+    }
+
+    // Declare the listener
+    private var listener: OnFavoriteButtonClickListener? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
             oeuvres = it.getSerializable(OEUVRES) as ArrayList<Oeuvre>
+        }
+
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        // Ensure the parent activity implements the listener interface
+        if (context is OnFavoriteButtonClickListener) {
+            listener = context
+        } else {
+            throw RuntimeException("$context must implement OnFavoriteButtonClickListener")
         }
     }
 
@@ -31,7 +50,7 @@ class OeuvreListFragmentLessDetail : Fragment() {
         val rootView = inflater.inflate(R.layout.fragment_oeuvre_list_less_details, container, false)
 
         recyclerView = rootView.findViewById(R.id.f_oeuvre_list_rcv_oeuvres_lessDetails)
-        oeuvreAdapter = OeuvreAdapter(oeuvres)
+        oeuvreAdapter = OeuvreAdapter(oeuvres, listener)
         recyclerView.adapter = oeuvreAdapter
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.addItemDecoration(
@@ -40,6 +59,7 @@ class OeuvreListFragmentLessDetail : Fragment() {
                 DividerItemDecoration.VERTICAL
             )
         )
+        oeuvreAdapter.notifyDataSetChanged() // Force the repaint of the buttons
 
         return rootView
     }
@@ -53,4 +73,5 @@ class OeuvreListFragmentLessDetail : Fragment() {
                 }
             }
     }
+
 }
