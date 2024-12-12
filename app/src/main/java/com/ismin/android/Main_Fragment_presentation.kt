@@ -17,7 +17,6 @@ class Main_Fragment_presentation : Fragment() {
     ): View? {
 
         val rootView = inflater.inflate(R.layout.main_fragment_presentation,container,false)
-
         //texte = rootView.findViewById(R.id.welcome_texte)
 
         return rootView

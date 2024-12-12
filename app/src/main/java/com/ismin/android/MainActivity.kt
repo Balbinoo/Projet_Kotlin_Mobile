@@ -4,8 +4,6 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import retrofit2.Call
@@ -18,12 +16,18 @@ const val SERVER_BASE_URL = "https://app-96fe8c94-9085-4eab-b051-80432bfa2281.cl
 
 class MainActivity : AppCompatActivity(), OeuvreCreator {
 
+    private var menu: Menu? = null
     private val compositionOeuvres = CompositionOeuvres()
     private val retrofit = Retrofit.Builder().addConverterFactory(GsonConverterFactory.create())
         .baseUrl(SERVER_BASE_URL).build()
     private val oeuvreService = retrofit.create(OeuvreService::class.java)
 
-    private var texte: TextView? = null
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        displayMainFragment()
+    }
+
 
     override fun onOeuvreCreated(oeuvre: Oeuvre) {
         // I don't know what it does write on top of
@@ -40,14 +44,40 @@ class MainActivity : AppCompatActivity(), OeuvreCreator {
             }
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        //setContentView(R.layout.main_fragment_presentation)
-        displayMainFragment()
-        //texte = findViewById(R.id.a_text_main) // Initialize TextView
+
+    override fun onDeleteCreated(oeuvre: Oeuvre) {
+        val idOeuvre = oeuvre.id_oeuvre
+        if (idOeuvre.isBlank()) {
+            Toast.makeText(this, "Invalid ID", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        // Call the delete API with the correct id_oeuvre
+        oeuvreService.deleteOeuvre(idOeuvre).enqueue(object : Callback<Void> {
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                if (response.isSuccessful) {
+
+                    // Remove the oeuvre from the local data structure
+                    compositionOeuvres.removeOeuvre(oeuvre)
+
+                    // Refresh the list in the UI
+                    displayOeuvreListFragment()
+
+                    Toast.makeText(this@MainActivity, "Oeuvre deleted successfully", Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(this@MainActivity, "Failed to delete oeuvre", Toast.LENGTH_SHORT).show()
+                    Log.e("Delete API", "Response error: ${response.code()}, ${response.errorBody()?.string()}")
+                }
+            }
+
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                Toast.makeText(this@MainActivity, "Error: ${t.message}", Toast.LENGTH_SHORT).show()
+                Log.e("Delete API", "Request failed: ${t.message}")
+            }
+        })
     }
 
-    private fun displayAllData(){
+    private fun displayAllData() {
         oeuvreService.getAllOeuvres().enqueue(object : Callback<List<Oeuvre>> {
 
             override fun onResponse(call: Call<List<Oeuvre>>, response: Response<List<Oeuvre>>) {
@@ -62,7 +92,7 @@ class MainActivity : AppCompatActivity(), OeuvreCreator {
             }
 
             override fun onFailure(call: Call<List<Oeuvre>>, t: Throwable) {
-                Log.d("Error directly?",  "Did it get in here????")
+                Log.d("Error directly?", "Did it get in here????")
                 Toast.makeText(baseContext, "Error: ${t.message}", Toast.LENGTH_LONG).show()
                 Log.d("Retrofit", "Request URL: ${call.request().url()}")
                 Log.e("MainActivity", "Error: ${t.message}")
@@ -71,23 +101,22 @@ class MainActivity : AppCompatActivity(), OeuvreCreator {
     }
 
     private fun displayOeuvreListFragment() {
-        //declares the fragment transaction
+        // Declares the fragment transaction
         val fragmentTransaction = supportFragmentManager.beginTransaction()
 
-
-        //declares new fragment listfragçentLessDetail
+        // Declares new fragment listfragmentLessDetail
         val oeuvreListFragmentLessDetail = OeuvreListFragmentLessDetail.newInstance(
             compositionOeuvres.getAllOeuvres(),
         )
-        //replaces the actual fragment with the one created
+        // Replaces the actual fragment with the one created
         fragmentTransaction.replace(R.id.a_main_fragment_container, oeuvreListFragmentLessDetail)
         fragmentTransaction.commit()
     }
 
-    private fun displayInfo(){
+    private fun displayInfo() {
         val fragmentTransaction = supportFragmentManager.beginTransaction()
-        val oeuvreinfoFragment = InfoFragment()
-        fragmentTransaction.replace(R.id.a_main_fragment_container, oeuvreinfoFragment)
+        val oeuvreInfoFragment = InfoFragment()
+        fragmentTransaction.replace(R.id.a_main_fragment_container, oeuvreInfoFragment)
         fragmentTransaction.commit()
     }
 
@@ -95,7 +124,7 @@ class MainActivity : AppCompatActivity(), OeuvreCreator {
         val fragmentTransaction = supportFragmentManager.beginTransaction()
         val mapsFragment = MapsFragment.newInstance(
             compositionOeuvres.getAllOeuvres(),
-            )
+        )
         fragmentTransaction.replace(R.id.a_main_fragment_container, mapsFragment)
         fragmentTransaction.commit()
     }
@@ -104,26 +133,36 @@ class MainActivity : AppCompatActivity(), OeuvreCreator {
         setContentView(R.layout.main_fragment)
         val fragmentTransaction = supportFragmentManager.beginTransaction()
         val mainFragment = Main_Fragment_presentation() // Initialize MainFragment
-         fragmentTransaction.replace(R.id.a_main_fragment_container, mainFragment)
+        fragmentTransaction.replace(R.id.a_main_fragment_container, mainFragment)
         fragmentTransaction.commit() // Commit the transaction
     }
 
-    private fun updateData(){
-/*
+    private fun updateData() {
+        // Clear the existing data in the local CompositionOeuvres
         compositionOeuvres.clear()
-        displayOeuvreListFragment()
 
-        oeuvreService.createOeuvre(oeuvre)
-            .enqueue {
-                onResponse = {
-                    val oeuvreFromServer: Oeuvre? = it.body()
-                    compositionOeuvres.addOeuvre(oeuvreFromServer!!)
+        // Fetch the latest data from the server
+        oeuvreService.getAllOeuvres().enqueue(object : Callback<List<Oeuvre>> {
+            override fun onResponse(call: Call<List<Oeuvre>>, response: Response<List<Oeuvre>>) {
+                if (response.isSuccessful) {
+                    val updatedOeuvres: List<Oeuvre>? = response.body()
+                    // Populate the local storage with the fetched data
+                    if (updatedOeuvres != null) {
+                        updatedOeuvres.forEach { compositionOeuvres.addOeuvre(it) }
+                    }
+
+                    // Refresh the UI with the updated data
                     displayOeuvreListFragment()
+                    Toast.makeText(this@MainActivity, "Data updated successfully", Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(this@MainActivity, "Failed to update data", Toast.LENGTH_SHORT).show()
                 }
-                onFailure = {
-                    Toast.makeText(this@MainActivity, it?.message, Toast.LENGTH_SHORT).show()
-                }
-            }*/
+            }
+
+            override fun onFailure(call: Call<List<Oeuvre>>, t: Throwable) {
+                Toast.makeText(this@MainActivity, "Error updating data: ${t.message}", Toast.LENGTH_LONG).show()
+            }
+        })
     }
 
     private fun displayCreateOeuvreFragment() {
@@ -133,8 +172,16 @@ class MainActivity : AppCompatActivity(), OeuvreCreator {
         fragmentTransaction.commit()
     }
 
+    private fun displayDeleteOeuvreFragment (){
+        val fragmentTransaction = supportFragmentManager.beginTransaction()
+        val deleteOeuvreFragment = DeleteOeuvreFragment(compositionOeuvres)
+        fragmentTransaction.replace(R.id.a_main_fragment_container, deleteOeuvreFragment)
+        fragmentTransaction.commit()
+    }
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_main, menu)
+        this.menu = menu
         return super.onCreateOptionsMenu(menu)
     }
 
@@ -145,8 +192,7 @@ class MainActivity : AppCompatActivity(), OeuvreCreator {
                 true
             }
             R.id.action_delete -> {
-                compositionOeuvres.clear()
-                displayOeuvreListFragment()
+                displayDeleteOeuvreFragment ()
                 true
             }
             R.id.action_add -> {
@@ -154,28 +200,22 @@ class MainActivity : AppCompatActivity(), OeuvreCreator {
                 true
             }
             R.id.action_Data -> {
-                texte?.visibility = View.INVISIBLE // Hide the TextView
                 displayAllData()
                 true
             }
             R.id.action_update -> {
-                //updateData(Oeuvre)
+                updateData()
                 true
             }
             R.id.action_maps -> {
-                texte?.visibility = View.INVISIBLE // Hide the TextView
-
                 displayMapsFragment()
                 true
             }
             R.id.action_info -> {
-                texte?.visibility = View.INVISIBLE // Hide the TextView
                 displayInfo()
                 true
             }
             else -> super.onOptionsItemSelected(item)
         }
     }
-
-
 }
