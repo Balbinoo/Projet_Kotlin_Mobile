@@ -13,6 +13,6 @@ class OeuvreViewHolder(rootView: View) : RecyclerView.ViewHolder(rootView) {
     var txvTitre = rootView.findViewById<TextView>(R.id.r_oeuvre_txv_titre)
     var txvAnnee = rootView.findViewById<TextView>(R.id.r_oeuvre_txv_annee)
     var imgPhotoUrl2 = rootView.findViewById<ImageView>(R.id.r_oeuvre_img_PhotoUrl2)
-    val detailButton: Button = itemView.findViewById(R.id.r_oeuvre_btn_details) // Button declaration
-
+    val detailButton: Button = itemView.findViewById(R.id.r_oeuvre_btn_details)
+    val favoriteButton: ImageView = rootView.findViewById(R.id.r_oeuvre_btn_favori) // Add this
 }

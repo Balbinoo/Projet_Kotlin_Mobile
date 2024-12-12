@@ -1,14 +1,15 @@
-package com.ismin.android
-
 import android.content.Context
 import android.content.Intent
-import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.ismin.android.Oeuvre
+import com.ismin.android.OeuvreDetailActivity
+import com.ismin.android.OeuvreViewHolder
+import com.ismin.android.R
 
 class OeuvreAdapter(
     private var oeuvres: List<Oeuvre>
@@ -28,26 +29,68 @@ class OeuvreAdapter(
         holder.txvIdExposition.text = oeuvre.id_exposition
         holder.txvTitre.text = oeuvre.titre
         holder.txvAnnee.text = oeuvre.annee
-        //holder.txvDimension.text = oeuvre.dimension
-        //holder.txvMatiere.text = oeuvre.matiere
 
         // Load image from URL using Glide
         Glide.with(holder.imgPhotoUrl2.context)
             .load(oeuvre.photo_url2)
             .into(holder.imgPhotoUrl2)
 
-        // Set up button click listener
+        // Set up button click listener for details
         holder.detailButton.setOnClickListener {
             // Call showDetails method and pass the necessary context
+            Log.d("ButtonTest", "Favorite button clicked!")
+
             showDetails(oeuvre, holder.itemView.context)
         }
+
+        // Set up favorite button (ImageView) click listener
+        holder.favoriteButton.setOnClickListener {
+            ajouterFavorite(oeuvre, holder)
+        }
+
+        // Ensure that the favorite button is clickable
+        holder.favoriteButton.isClickable = true
+        holder.favoriteButton.isFocusable = true
+        holder.favoriteButton.isEnabled = true
+
+        // Update the favorite button icon based on the favorite status
+        if (oeuvre.isFavorite) {
+            holder.favoriteButton.setImageResource(R.drawable.ic_star_filled) // Filled star
+        } else {
+            holder.favoriteButton.setImageResource(R.drawable.ic_star_empty) // Empty star
+        }
+    }
+
+    private fun ajouterFavorite(oeuvre: Oeuvre, holder: OeuvreViewHolder) {
+        // Toggle the 'favorite' status of the Oeuvre
+        oeuvre.isFavorite = !oeuvre.isFavorite
+
+        // Log the favorite button press
+        Log.d("ButtonTest", "Favorite pressed for Oeuvre ID: ${oeuvre.id_oeuvre}, Is Favorite: ${oeuvre.isFavorite}")
+
+        // Reorder the list so favorites come to the top
+        oeuvres = oeuvres.sortedByDescending { it.isFavorite }.toMutableList()
+
+        // Change the icon based on whether it's a favorite
+        if (oeuvre.isFavorite) {
+            holder.favoriteButton.setImageResource(R.drawable.ic_star_filled) // Filled star
+        } else {
+            holder.favoriteButton.setImageResource(R.drawable.ic_star_empty) // Empty star
+        }
+
+        // Use the Context from the ViewHolder to show the Toast
+        val context = holder.itemView.context
+        Toast.makeText(context, if (oeuvre.isFavorite) "Added to Favorites" else "Removed from Favorites", Toast.LENGTH_SHORT).show()
+
+        // Notify the adapter that the list has changed
+        notifyDataSetChanged()
     }
 
     private fun showDetails(oeuvre: Oeuvre, context: Context) {
         // Create an intent to launch OeuvreDetailActivity
         val intent = Intent(context, OeuvreDetailActivity::class.java)
 
-        intent.putExtra("oeuvre",oeuvre)
+        intent.putExtra("oeuvre", oeuvre)
 
         // Start the activity
         context.startActivity(intent)

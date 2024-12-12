@@ -104,9 +104,12 @@ class MainActivity : AppCompatActivity(), OeuvreCreator {
         // Declares the fragment transaction
         val fragmentTransaction = supportFragmentManager.beginTransaction()
 
+        // Get the list of oeuvres and sort them by id_oeuvre
+        val sortedOeuvres = compositionOeuvres.getAllOeuvres().sortedBy { it.titre }
+
         // Declares new fragment listfragmentLessDetail
         val oeuvreListFragmentLessDetail = OeuvreListFragmentLessDetail.newInstance(
-            compositionOeuvres.getAllOeuvres(),
+            ArrayList(sortedOeuvres),
         )
         // Replaces the actual fragment with the one created
         fragmentTransaction.replace(R.id.a_main_fragment_container, oeuvreListFragmentLessDetail)
@@ -134,7 +137,7 @@ class MainActivity : AppCompatActivity(), OeuvreCreator {
         val fragmentTransaction = supportFragmentManager.beginTransaction()
         val mainFragment = Main_Fragment_presentation() // Initialize MainFragment
         fragmentTransaction.replace(R.id.a_main_fragment_container, mainFragment)
-        fragmentTransaction.commit() // Commit the transaction
+        fragmentTransaction.commit()
     }
 
     private fun updateData() {
