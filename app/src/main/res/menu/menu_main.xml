@@ -31,4 +31,9 @@
         android:icon="@drawable/baseline_delete_24"
         android:title="Delete"
         app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_search"
+        android:title="Recherche"
+        app:showAsAction="ifRoom|collapseActionView"
+        app:actionViewClass="androidx.appcompat.widget.SearchView" />
 </menu>
