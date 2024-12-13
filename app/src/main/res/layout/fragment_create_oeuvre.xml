@@ -6,8 +6,8 @@
     android:layout_height="match_parent">
 
     <LinearLayout
-        android:layout_width="382dp"
-        android:layout_height="358dp"
+        android:layout_width="394dp"
+        android:layout_height="635dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -47,6 +47,14 @@
             android:text="annee" />
 
         <EditText
+            android:id="@+id/f_create_oeuvre_edt_dimension"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="text"
+            android:text="dimension" />
+
+        <EditText
             android:id="@+id/f_create_oeuvre_edt_matiere"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -63,6 +71,14 @@
             android:text="emplacement" />
 
         <EditText
+            android:id="@+id/f_create_oeuvre_edt_collection"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="text"
+            android:text="Collection" />
+
+        <EditText
             android:id="@+id/f_create_oeuvre_edt_texte_presentations"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -70,11 +86,45 @@
             android:inputType="text"
             android:text="texte_presentation" />
 
+        <EditText
+            android:id="@+id/f_create_oeuvre_edt_localisation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="text"
+            android:text="Localisation" />
+
+        <EditText
+            android:id="@+id/f_create_oeuvre_edt_photo_auteur"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="text"
+            android:text="Auteur" />
+
+        <EditText
+            android:id="@+id/f_create_oeuvre_edt_nom_fichier"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="text"
+            android:text="Nom du fichier" />
+        <EditText
+            android:id="@+id/f_create_oeuvre_edt_photo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="text"
+            android:text="Photo_URL" />
+
         <Button
             android:id="@+id/f_create_oeuvre_btn_save"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Save" />
+
+
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

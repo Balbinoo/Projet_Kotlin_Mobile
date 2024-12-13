@@ -15,6 +15,7 @@ class InfoFragment : Fragment() {
 
         val rootView = inflater.inflate(R.layout.info_fragment,container,false)
 
+
         return rootView
     }
 

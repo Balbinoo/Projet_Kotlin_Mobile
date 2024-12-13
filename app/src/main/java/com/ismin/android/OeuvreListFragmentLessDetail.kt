@@ -29,6 +29,7 @@ class OeuvreListFragmentLessDetail : Fragment() {
         arguments?.let {
             oeuvres = it.getSerializable(OEUVRES) as ArrayList<Oeuvre>
         }
+        setHasOptionsMenu(true)
 
     }
 

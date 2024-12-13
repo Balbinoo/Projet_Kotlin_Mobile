@@ -1,6 +1,7 @@
 package com.ismin.android
 
 import GeoPoint2D
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -19,9 +20,16 @@ class CreateOeuvreFragment : Fragment() {
     private lateinit var leMatiere: EditText
     private lateinit var lEmplacement: EditText
     private lateinit var leTextePresentation: EditText
+    private lateinit var dimension : EditText
+    private lateinit var localisation : EditText
+    private lateinit var photoURL : EditText
+    private lateinit var collection : EditText
+    private lateinit var photo_auteur : EditText
+    private lateinit var nomfichier : EditText
     private lateinit var saveBtn: Button
     private lateinit var listener: OeuvreCreator
 
+    @SuppressLint("MissingInflatedId")
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -38,6 +46,12 @@ class CreateOeuvreFragment : Fragment() {
         lEmplacement = rootView.findViewById(R.id.f_create_oeuvre_edt_emplacement)
         leTextePresentation = rootView.findViewById(R.id.f_create_oeuvre_edt_texte_presentations)
         saveBtn = rootView.findViewById(R.id.f_create_oeuvre_btn_save)
+        dimension = rootView.findViewById(R.id.f_create_oeuvre_edt_dimension)
+        localisation = rootView.findViewById(R.id.f_create_oeuvre_edt_localisation)
+        photoURL =rootView.findViewById(R.id.f_create_oeuvre_edt_photo)
+        collection = rootView.findViewById(R.id.f_create_oeuvre_edt_collection)
+        photo_auteur = rootView.findViewById(R.id.f_create_oeuvre_edt_photo_auteur)
+        nomfichier = rootView.findViewById(R.id.f_create_oeuvre_edt_nom_fichier)
 
         saveBtn.setOnClickListener {
             saveOeuvre()
@@ -58,7 +72,7 @@ class CreateOeuvreFragment : Fragment() {
 
     private fun saveOeuvre() {
 
-        val id_oeuvre = idOeuvre.text.toString()
+        val  id_oeuvre = idOeuvre.text.toString()
         val id_exposition = idExposition.text.toString()
         val titre = leTitre.text.toString()
         val annee = lAnnee.text.toString()

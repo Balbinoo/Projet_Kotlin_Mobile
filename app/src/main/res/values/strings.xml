@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Android</string>
+    <string name="app_name">Les oeuvres en France</string>
     <string name="save">Save</string>
     <string name="isbn">ISBN</string>
     <string name="title">Title</string>

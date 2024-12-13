@@ -208,12 +208,14 @@ class MainActivity :
         menuInflater.inflate(R.menu.menu_main, menu)
         this.menu = menu
         return super.onCreateOptionsMenu(menu)
+
     }
 
     override fun onResume() {
         super.onResume()
+
         // Hide the action bar when the Main_Fragment_presentation is visible
-        supportActionBar?.hide()
+       //supportActionBar?.hide()
     }
 
     override fun onPause() {
